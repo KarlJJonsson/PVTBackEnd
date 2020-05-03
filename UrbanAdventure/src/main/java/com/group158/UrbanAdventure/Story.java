@@ -1,14 +1,13 @@
 package com.group158.UrbanAdventure;
 
 import java.util.List;
+import java.util.UUID;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "stories")
 public class Story {
-    @Id //Spring framework id
-    private String id;
+    private String id; //tog bort annoteringen @id, den försökte göra om string till int, vet ej orsak men någonting under the hood som bråkade
 
     //Icon
     //Creator ID
@@ -19,6 +18,28 @@ public class Story {
     private List<Event> events;
     private String description;
     private int firstEventIndex; //ID för första eventet dvs. startskärmen för story.
+
+    public Story(String title, String description){
+        this.id = UUID.randomUUID().toString();
+        this.title = title;
+        this.description = description;
+    }
+
+    public Story(String title, String description, int firstEventIndex, List<Event> events){
+        this.id = UUID.randomUUID().toString();
+        this.title = title;
+        this.description = description;
+        this.firstEventIndex = firstEventIndex;
+        this.events = events;
+    }
+
+    public Story(){
+        this.id = UUID.randomUUID().toString();
+    }
+
+    public String getId(){
+        return id;
+    }
 
     public void setTitle(String title){
         this.title = title;

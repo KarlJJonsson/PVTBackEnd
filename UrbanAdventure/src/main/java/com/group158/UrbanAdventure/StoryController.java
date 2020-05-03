@@ -31,7 +31,7 @@ public class StoryController {
     @PostMapping("/newStory")
     public ResponseEntity<String> createStory(@RequestBody Story story) {
         storyRepository.save(story);
-
+        System.out.println(story.getId());
         return new ResponseEntity<String>("Story added!", HttpStatus.CREATED);
     }
 
@@ -58,33 +58,21 @@ public class StoryController {
         }
     }
 
-    // @GetMapping("/find/ById/{id}")
-    // public ResponseEntity<Story> getById(@PathVariable("id") String id){
-    //     Optional<Story> story = storyRepository.findById(id);
-    //     if(story.isPresent()){
-    //         return new ResponseEntity<Story>(story.get(), HttpStatus.OK);
-    //     }
-    //     else{
-    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    //     }
-    // }
-
-    @GetMapping("/find/{title}/{EventIndex}")
-    public ResponseEntity<Event> getEventByTitle(@PathVariable("title") String title, @PathVariable("EventIndex") int eventIndex){
-        Optional<Story> story = storyRepository.findByTitle(title);
-        if(story.isPresent() && story.get().getEvents().size() > eventIndex){
-            Event event = story.get().getEvent(eventIndex);
-            return new ResponseEntity<Event>(event, HttpStatus.OK);
+    @GetMapping("/find/byId/{id}")
+    public ResponseEntity<Story> getById(@PathVariable("id") String id){
+        Optional<Story> story = storyRepository.findById(id);
+        if(story.isPresent()){
+            return new ResponseEntity<Story>(story.get(), HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    // @GetMapping("/find/{id}/{EventIndex}")
-    // public ResponseEntity<Event> getEventById(@PathVariable("id") String id, @PathVariable("EventIndex") int eventIndex){
-    //     Optional<Story> story = storyRepository.findById(id);
-    //     if(story.isPresent()){
+    // @GetMapping("/find/{title}/{EventIndex}")
+    // public ResponseEntity<Event> getEventByTitle(@PathVariable("title") String title, @PathVariable("EventIndex") int eventIndex){
+    //     Optional<Story> story = storyRepository.findByTitle(title);
+    //     if(story.isPresent() && story.get().getEvents().size() > eventIndex){
     //         Event event = story.get().getEvent(eventIndex);
     //         return new ResponseEntity<Event>(event, HttpStatus.OK);
     //     }
@@ -92,6 +80,18 @@ public class StoryController {
     //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     //     }
     // }
+
+    @GetMapping("/find/{id}/{EventIndex}")
+    public ResponseEntity<Event> getEventById(@PathVariable("id") String id, @PathVariable("EventIndex") int eventIndex){
+        Optional<Story> story = storyRepository.findById(id);
+        if(story.isPresent()){
+            Event event = story.get().getEvent(eventIndex);
+            return new ResponseEntity<Event>(event, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 
     
