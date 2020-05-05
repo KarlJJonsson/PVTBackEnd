@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/")
+
 public class StoryController {
     
     @Autowired
@@ -92,8 +92,4 @@ public class StoryController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-
-    
-
 }
