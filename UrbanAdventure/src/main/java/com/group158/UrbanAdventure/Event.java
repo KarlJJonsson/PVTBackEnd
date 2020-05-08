@@ -22,7 +22,7 @@ public abstract class Event {
     //möjligen en icon för events?
 
     //id ska vara unikt per story, inte globalt som det är nu.
-    private String id; //tog bort annoteringen @id, den försökte göra om string till int, vet ej orsak men någonting under the hood som bråkade
+    private String id;
 
 
     List<Event> children;
