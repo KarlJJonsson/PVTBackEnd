@@ -39,4 +39,9 @@ public class Location extends Event {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+    public Location(double radius, List<Event> children){
+        super(children);
+        this.radius = radius;
+    }
 }
