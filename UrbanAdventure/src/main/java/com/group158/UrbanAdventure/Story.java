@@ -20,7 +20,7 @@ public class Story {
     private int firstEventIndex; //ID för första eventet dvs. startskärmen för story.
 
     public Story(String title, String description){
-        this.id = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString(); //Genereras med UUID, dvs en universal unique pseudo random generator
         this.title = title;
         this.description = description;
     }
