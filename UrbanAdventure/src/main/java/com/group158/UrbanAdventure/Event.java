@@ -1,8 +1,5 @@
 package com.group158.UrbanAdventure;
 
-import java.util.List;
-import java.util.UUID;
-
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -13,26 +10,32 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 )
 
 @JsonSubTypes({
-    @Type(value = Location.class, name = "Location"),
-    @Type(value = Message.class, name = "Message")
+    @Type(value = EventPrompt.class, name = "prompt"),
+    @Type(value = EventMessage.class, name = "message")
 })
 
 public abstract class Event {
+    private int id;
+    private int path;
 
-    //möjligen en icon för events?
-
-    //id ska vara unikt per story, inte globalt som det är nu.
-    private String id;
-
-
-    List<Event> children;
-
-    public Event(List<Event> children){
-        this.id = UUID.randomUUID().toString();
-        this.children = children;
+    public Event(int id, int path){
+        this.id = id;
+        this.path = path;
     }
 
-    public String getId(){
+    public int getId(){
         return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public int getPath(){
+        return path;
+    }
+
+    public void setPath(int path){
+        this.path = path;
     }
 }
