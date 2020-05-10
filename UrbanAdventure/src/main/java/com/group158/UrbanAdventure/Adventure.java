@@ -50,9 +50,9 @@ public class Adventure {
         this.parts = parts;
     }
 
-    public Adventure(String title, int length, List<AdventurePart> parts, String type){
+    public Adventure(String adventureTitle, int length, List<AdventurePart> parts, String type){
         this.id = UUID.randomUUID().toString(); //Genereras med UUID, dvs en universal unique pseudo random generator
-        this.adventureTitle = title;
+        this.adventureTitle = adventureTitle;
         this.length = length;
         this.parts = parts;
         this.type = type;

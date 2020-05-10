@@ -35,9 +35,9 @@ public class AdventureController {
         return new ResponseEntity<String>("Adventure added!", HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/remove/title")
-    public ResponseEntity<Adventure> deleteAdventureById(@PathVariable("id") String title){
-        Optional<Adventure> Adventure = AdventureRepository.findByAdventureTitle(title);
+    @DeleteMapping("/remove/{adventureTitle}")
+    public ResponseEntity<Adventure> deleteAdventureById(@PathVariable("adventureTitle") String adventureTitle){
+        Optional<Adventure> Adventure = AdventureRepository.findByAdventureTitle(adventureTitle);
         if(Adventure.isPresent()){
             AdventureRepository.delete(Adventure.get());
             return new ResponseEntity<Adventure>(Adventure.get(), HttpStatus.OK);
@@ -47,9 +47,9 @@ public class AdventureController {
         }
     }
 
-    @GetMapping("/search/{title}")
-    public ResponseEntity<Adventure> getByTitle(@PathVariable("title") String title){
-        Optional<Adventure> Adventure = AdventureRepository.findByAdventureTitle(title);
+    @GetMapping("/search/{adventureTitle}")
+    public ResponseEntity<Adventure> getByAdventureTitle(@PathVariable("adventureTitle") String adventureTitle){
+        Optional<Adventure> Adventure = AdventureRepository.findByAdventureTitle(adventureTitle);
         if(Adventure.isPresent()){
             return new ResponseEntity<Adventure>(Adventure.get(), HttpStatus.OK);
         }
