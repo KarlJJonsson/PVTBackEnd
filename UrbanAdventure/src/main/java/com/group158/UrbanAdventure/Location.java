@@ -3,13 +3,13 @@ package com.group158.UrbanAdventure;
 public class Location{
     private double latitude;
     private double longitude;
-    private double radius;
+    private int radius;
 
-    public void setRadius(double radius){
+    public void setRadius(int radius){
         this.radius = radius;
     }
 
-    public double getRadius(){
+    public int getRadius(){
         return radius;
     }
 
@@ -29,7 +29,7 @@ public class Location{
         return longitude;
     }
 
-    public Location(double radius, double latitude, double longitude){
+    public Location(int radius, double latitude, double longitude){
         this.radius = radius;
         this.latitude = latitude;
         this.longitude = longitude;
