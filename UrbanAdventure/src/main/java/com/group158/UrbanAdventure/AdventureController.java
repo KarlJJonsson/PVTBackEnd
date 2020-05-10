@@ -28,6 +28,11 @@ public class AdventureController {
         return new ResponseEntity<List<Adventure>>(stories, HttpStatus.OK);
     }
 
+    @GetMapping("/all/hello")
+    public ResponseEntity<String> getHelloMsg(){
+        return new ResponseEntity<String>("Hello!", HttpStatus.OK);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<String> createAdventure(@RequestBody Adventure Adventure) {
         AdventureRepository.save(Adventure);
