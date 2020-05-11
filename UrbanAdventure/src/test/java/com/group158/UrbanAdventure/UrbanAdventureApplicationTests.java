@@ -30,7 +30,7 @@ class UrbanAdventureApplicationTests {
 	void testHelloController(){
 		AdventureController adventureController = new AdventureController();
 		String result = adventureController.getHelloMsg().getBody();
-		assertEquals("Hello", result);
+		assertEquals("Hello!", result);
 	}
 
 }
