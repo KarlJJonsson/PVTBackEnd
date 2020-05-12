@@ -12,19 +12,15 @@ public class Adventure {
     private String adventureTitle;
     private int length;
     private String genre;
-    private int numberOfLocations;
+    private int numberOfParts;
     private String descriptionText;
     private String author;
     private List<AdventurePart> parts;
-    private String type;
+    //private String type;
 
-    public String getType() {
-        return this.type;
-    }
+    //public String getType() { return this.type; }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    //public void setType(String type) {this.type = type; }
 
     public String getId() {
         return this.id;
@@ -71,12 +67,17 @@ public class Adventure {
         this.parts = parts;
     }
 
-    public Adventure(String adventureTitle, int length, List<AdventurePart> parts, String type){
+    // Tog bort type ur constructorn, men kommenterade bara bort bland variabeln och setter och getter
+    public Adventure(String adventureTitle, int length, String genre, int numberOfParts, String descriptionText, String author, List<AdventurePart> parts){
         this.id = UUID.randomUUID().toString(); //Genereras med UUID, dvs en universal unique pseudo random generator
         this.adventureTitle = adventureTitle;
         this.length = length;
+        this.genre = genre;
+        this.numberOfParts = numberOfParts;
+        this.descriptionText = descriptionText;
+        this.author = author;
         this.parts = parts;
-        this.type = type;
+
     }
 
 }
