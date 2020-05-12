@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class AdventureController {
     
     @Autowired
-    AdventureRepository AdventureRepository;
+    AdventureRepository adventureRepository;
 
     @GetMapping("/all")
     public ResponseEntity<List<Adventure>> getAllStories(){
-        List<Adventure> stories = AdventureRepository.findAll();
+        List<Adventure> stories = adventureRepository.findAll();
         return new ResponseEntity<List<Adventure>>(stories, HttpStatus.OK);
     }
 
@@ -35,38 +35,17 @@ public class AdventureController {
 
     @PostMapping("/create")
     public ResponseEntity<String> createAdventure(@RequestBody Adventure Adventure) {
-        AdventureRepository.save(Adventure);
+        adventureRepository.save(Adventure);
         System.out.println(Adventure.getId());
         return new ResponseEntity<String>("Adventure added!", HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/remove/{adventureTitle}")
-    public ResponseEntity<Adventure> deleteAdventureById(@PathVariable("adventureTitle") String adventureTitle){
-        Optional<Adventure> Adventure = AdventureRepository.findByAdventureTitle(adventureTitle);
-        if(Adventure.isPresent()){
-            AdventureRepository.delete(Adventure.get());
-            return new ResponseEntity<Adventure>(Adventure.get(), HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/search/{adventureTitle}")
-    public ResponseEntity<Adventure> getByAdventureTitle(@PathVariable("adventureTitle") String adventureTitle){
-        Optional<Adventure> Adventure = AdventureRepository.findByAdventureTitle(adventureTitle);
-        if(Adventure.isPresent()){
-            return new ResponseEntity<Adventure>(Adventure.get(), HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    // @GetMapping("/find/byId/{id}")
-    // public ResponseEntity<Adventure> getById(@PathVariable("id") String id){
-    //     Optional<Adventure> Adventure = AdventureRepository.findById(id);
+        //fixa att remove körs på ID och inte title
+    // @DeleteMapping("/remove/{adventureTitle}")
+    // public ResponseEntity<Adventure> deleteAdventureById(@PathVariable("adventureTitle") String adventureTitle){
+    //     Optional<Adventure> Adventure = AdventureRepository.findByAdventureTitle(adventureTitle);
     //     if(Adventure.isPresent()){
+    //         AdventureRepository.delete(Adventure.get());
     //         return new ResponseEntity<Adventure>(Adventure.get(), HttpStatus.OK);
     //     }
     //     else{
@@ -74,27 +53,17 @@ public class AdventureController {
     //     }
     // }
 
-    // @GetMapping("/search/{title}/{EventId}")
-    // public ResponseEntity<Event> getEventByTitle(@PathVariable("title") String title, @PathVariable("EventId") int eventId){
-    //     Optional<Adventure> Adventure = AdventureRepository.findByAdventureTitle(title);
-    //     if(Adventure.isPresent() && Adventure.get().getEvents().size() > eventIndex){
-    //         Event event = Adventure.get().getEvent(eventIndex);
-    //         return new ResponseEntity<Event>(event, HttpStatus.OK);
-    //     }
-    //     else{
-    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    //     }
-    // }
+    //Returna List istället för Adventure
+    @GetMapping("/search/{adventureTitle}")
+    public ResponseEntity<List<Adventure>> getByAdventureTitle(@PathVariable("adventureTitle") String adventureTitle){
+        Optional<List<Adventure>> Adventure = adventureRepository.findAllByAdventureTitle(adventureTitle);
+        if(Adventure.isPresent()){
+            return new ResponseEntity<List<Adventure>>(Adventure.get(), HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
-    // @GetMapping("/find/{id}/{EventIndex}")
-    // public ResponseEntity<Event> getEventById(@PathVariable("id") String id, @PathVariable("EventIndex") int eventIndex){
-    //     Optional<Adventure> Adventure = AdventureRepository.findById(id);
-    //     if(Adventure.isPresent()){
-    //         Event event = Adventure.get().getEvent(eventIndex);
-    //         return new ResponseEntity<Event>(event, HttpStatus.OK);
-    //     }
-    //     else{
-    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    //     }
-    // }
+    //GetMapping för id, för att hitta unika äventyr
 }
