@@ -55,10 +55,10 @@ public class AdventureController {
 
     //Returna List istället för Adventure
     @GetMapping("/search/{adventureTitle}")
-    public ResponseEntity<List<Adventure>> getByAdventureTitle(@PathVariable("adventureTitle") String adventureTitle){
-        Optional<List<Adventure>> Adventure = adventureRepository.findAllByAdventureTitle(adventureTitle);
-        if(Adventure.isPresent()){
-            return new ResponseEntity<List<Adventure>>(Adventure.get(), HttpStatus.OK);
+    public ResponseEntity<List<Adventure>> getAllByAdventureTitle(@PathVariable("adventureTitle") String adventureTitle){
+        Optional<List<Adventure>> adventure = adventureRepository.findAllByAdventureTitle(adventureTitle);
+        if(adventure.isPresent()){
+            return new ResponseEntity<List<Adventure>>(adventure.get(), HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
