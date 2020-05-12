@@ -11,6 +11,10 @@ public class Adventure {
                        // men någonting under the hood som bråkade
     private String adventureTitle;
     private int length;
+    private String genre;
+    private int numberOfLocations;
+    private String descriptionText;
+    private String author;
     private List<AdventurePart> parts;
     private String type;
 
@@ -41,6 +45,23 @@ public class Adventure {
     public void setLength(int length) {
         this.length = length;
     }
+
+    public String getGenre() {return this.genre;}
+
+    public void setGenre(String genre) { this.genre = genre; }
+
+    public int getNumberOfLocations() { return this.numberOfLocations; }
+
+    // Behöver vi verkligen en setter för numberOfLocations?
+    public void setNumberOfLocations(int numberOfLocations) { this.numberOfLocations = numberOfLocations; }
+
+    public String getDescriptionText(){ return this.descriptionText; }
+
+    public void setDescriptionText(String descriptionText) { this.descriptionText = descriptionText; }
+
+    public String getAuthor() { return this.author; }
+
+    public void setAuthor(String author) { this.author = author; }
 
     public List<AdventurePart> getParts() {
         return this.parts;
