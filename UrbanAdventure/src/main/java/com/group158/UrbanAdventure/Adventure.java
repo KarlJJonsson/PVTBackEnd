@@ -11,16 +11,11 @@ public class Adventure {
                        // men någonting under the hood som bråkade
     private String adventureTitle;
     private int length;
+    private String genre;
+    private int numberOfParts;
+    private String descriptionText;
+    private String author;
     private List<AdventurePart> parts;
-    private String type;
-
-    public String getType() {
-        return this.type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getId() {
         return this.id;
@@ -42,6 +37,22 @@ public class Adventure {
         this.length = length;
     }
 
+    public String getGenre() {return this.genre;}
+
+    public void setGenre(String genre) { this.genre = genre; }
+
+    public int getNumberOfLocations() { return this.numberOfLocations; }
+
+    public void setNumberOfLocations(int numberOfLocations) { this.numberOfLocations = numberOfLocations; }
+
+    public String getDescriptionText(){ return this.descriptionText; }
+
+    public void setDescriptionText(String descriptionText) { this.descriptionText = descriptionText; }
+
+    public String getAuthor() { return this.author; }
+
+    public void setAuthor(String author) { this.author = author; }
+
     public List<AdventurePart> getParts() {
         return this.parts;
     }
@@ -50,12 +61,16 @@ public class Adventure {
         this.parts = parts;
     }
 
-    public Adventure(String adventureTitle, int length, List<AdventurePart> parts, String type){
+    public Adventure(String adventureTitle, int length, String genre, int numberOfParts, String descriptionText, String author, List<AdventurePart> parts){
         this.id = UUID.randomUUID().toString(); //Genereras med UUID, dvs en universal unique pseudo random generator
         this.adventureTitle = adventureTitle;
         this.length = length;
+        this.genre = genre;
+        this.numberOfParts = numberOfParts;
+        this.descriptionText = descriptionText;
+        this.author = author;
         this.parts = parts;
-        this.type = type;
+
     }
 
 }
