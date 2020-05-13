@@ -14,4 +14,14 @@ public class Item {
     public void setName(String name) {
         this.name = name;
     }
+
+    public boolean equals(Object object){
+        if(object instanceof Item){
+            Item item = (Item) object;
+            if(this.name.equals(item.name)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

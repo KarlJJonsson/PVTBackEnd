@@ -42,4 +42,15 @@ public abstract class Event {
     public void setPath(int path){
         this.path = path;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Event)) {
+            return false;
+        }
+        Event event = (Event) o;
+        return index == event.index && path == event.path;
+    }
 }
