@@ -2,7 +2,7 @@ package com.group158.UrbanAdventure;
 
 public class EventItemReceive extends Event{
     private String message;
-    private Item item;
+    private String item;
 
     public String getMessage() {
         return this.message;
@@ -12,15 +12,15 @@ public class EventItemReceive extends Event{
         this.message = message;
     }
 
-    public Item getItem() {
+    public String getItem() {
         return this.item;
     }
 
-    public void setItem(Item item) {
+    public void setItem(String item) {
         this.item = item;
     }
 
-    public EventItemReceive(int index, int path, String message, Item item) {
+    public EventItemReceive(int index, int path, String message, String item) {
         super(index, path);
         this.message = message;
         this.item = item;
