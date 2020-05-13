@@ -1,7 +1,5 @@
 package com.group158.UrbanAdventure;
 
-import java.util.Objects;
-
 public class EventItemReceive extends Event {
     private String message;
     private String item;
