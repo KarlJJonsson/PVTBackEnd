@@ -11,8 +11,8 @@ public class EventMessage extends Event {
         return this.message;
     }
 
-    public EventMessage(int id, int path, String message){
-        super(id, path);
+    public EventMessage(int index, int path, String message){
+        super(index, path);
         this.message = message;
     }
 }
