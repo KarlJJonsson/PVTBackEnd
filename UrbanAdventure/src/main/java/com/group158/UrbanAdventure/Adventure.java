@@ -76,19 +76,23 @@ public class Adventure {
         this.parts = parts;
     }
 
+    @Override
     public boolean equals(Object object){
-        if (this == object){
-            return true;
-        }
-        
         if (object instanceof Adventure){
-            Adventure otherObject = (Adventure) object;
-            if(this.getId().equals(otherObject.getId())){
+            Adventure adventure = (Adventure) object;
+            if(this.id.equals(adventure.id)
+                && this.adventureTitle.equals(adventure.adventureTitle)
+                && this.length == adventure.length
+                && this.genre.equals(adventure.genre)
+                && this.numberOfParts == adventure.numberOfParts
+                && this.descriptionText.equals(adventure.descriptionText)
+                && this.author.equals(adventure.author)
+                && this.parts.equals(adventure.parts)
+            ){
                 return true;
             }
         }
         return false;
 
     }
-
 }

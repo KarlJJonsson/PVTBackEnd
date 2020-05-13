@@ -1,6 +1,8 @@
 package com.group158.UrbanAdventure;
 
-public class EventLast extends Event{
+import java.util.Objects;
+
+public class EventLast extends Event {
     private String message;
     private int nextPartIndex;
 
@@ -24,5 +26,19 @@ public class EventLast extends Event{
 
     public void setNextPartIndex(int nextPartIndex) {
         this.nextPartIndex = nextPartIndex;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof EventEnd)) {
+            return false;
+        }
+        EventLast event = (EventLast) o;
+        return this.getIndex() == event.getIndex() 
+        && this.getPath() == event.getPath() 
+        && Objects.equals(message, event.getMessage())
+        && this.nextPartIndex == event.getNextPartIndex();
     }
 }

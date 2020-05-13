@@ -32,7 +32,7 @@ public class HttpRequestTest {
         adventure.setId(body);
         jsonAdventure = testUtil.generateAdventureJsonStringWithId(body);
         HttpStatus status = response.getStatusCode();
-        assertEquals(201, status, "checks statuscode for /create");
+        assertEquals(HttpStatus.CREATED, status, "checks statuscode for /create");
     }
 
     @Test

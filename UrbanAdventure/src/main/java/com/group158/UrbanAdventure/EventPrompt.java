@@ -1,6 +1,8 @@
 package com.group158.UrbanAdventure;
 
-public class EventPrompt extends Event{
+import java.util.Objects;
+
+public class EventPrompt extends Event {
     private String message;
     private String promptMessage;
     private String correctAnswer;
@@ -45,5 +47,21 @@ public class EventPrompt extends Event{
         this.promptMessage = promptMessage;
         this.wrongAnswerPath = wrongAnswerPath;
         this.correctAnswer = correctAnswer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof EventEnd)) {
+            return false;
+        }
+        EventPrompt event = (EventPrompt) o;
+        return this.getIndex() == event.getIndex() 
+        && this.getPath() == event.getPath()
+        && Objects.equals(message, event.getMessage())
+        && Objects.equals(promptMessage, event.getPromptMessage())
+        && Objects.equals(correctAnswer, event.getCorrectAnswer())
+        && Objects.equals(wrongAnswerPath, event.getWrongAnswerPath());
     }
 }

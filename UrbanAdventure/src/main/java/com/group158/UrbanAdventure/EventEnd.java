@@ -1,6 +1,8 @@
 package com.group158.UrbanAdventure;
 
-public class EventEnd extends Event{
+import java.util.Objects;
+
+public class EventEnd extends Event {
     private String message;
 
     public EventEnd(int index, int path, String message) {
@@ -14,5 +16,18 @@ public class EventEnd extends Event{
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof EventEnd)) {
+            return false;
+        }
+        EventEnd event = (EventEnd) o;
+        return this.getIndex() == event.getIndex() 
+        && this.getPath() == event.getPath() 
+        && Objects.equals(message, event.getMessage());
     }
 }

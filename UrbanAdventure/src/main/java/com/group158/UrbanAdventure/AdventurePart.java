@@ -36,4 +36,18 @@ public class AdventurePart {
         this.location = location;
         this.events = events;
     }
+
+    public boolean equals(Object object){
+        if (object instanceof AdventurePart){
+            AdventurePart adventurePart = (AdventurePart) object;
+            if(this.index == (adventurePart.index)
+                && this.location.equals(adventurePart.location)
+                && this.events.equals(adventurePart.events)
+            ){
+                return true;
+            }
+        }
+        return false;
+
+    }
 }

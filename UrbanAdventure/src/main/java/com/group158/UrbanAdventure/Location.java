@@ -34,4 +34,18 @@ public class Location{
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+    @Override
+    public boolean equals(Object object){
+        if (object instanceof Location){
+            Location location = (Location) object;
+            if(this.latitude == location.latitude
+                && this.longitude == location.longitude
+                && this.radius == location.radius
+            ){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -1,6 +1,7 @@
 package com.group158.UrbanAdventure;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EventMultipleChoice extends Event{
     private List<Choice> choices;
@@ -36,5 +37,19 @@ public class EventMultipleChoice extends Event{
     public EventMultipleChoice message(String message) {
         this.message = message;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof EventEnd)) {
+            return false;
+        }
+        EventMultipleChoice event = (EventMultipleChoice) o;
+        return this.getIndex() == event.getIndex() 
+        && this.getPath() == event.getPath() 
+        && Objects.equals(message, event.getMessage())
+        && Objects.equals(choices, event.getChoices());
     }
 }
