@@ -111,4 +111,34 @@ public class HttpRequestTest {
         //deletes adventure when test is done
         this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
     }
+
+    @Test
+    public void getAllShouldReturnAllAdventures(){
+
+        adventure.setAdventureTitle("OnlyForTesting1");
+
+        Adventure adventure2 = testUtil.generateAdventure();
+        adventure2.setAdventureTitle("OnlyForTesting2");
+
+        Adventure adventure3 = testUtil.generateAdventure();
+        adventure3.setAdventureTitle("OnlyForTesting3");
+
+        this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
+        this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure2, String.class);
+        this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure3, String.class);
+
+        ResponseEntity<List> response = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/all/",
+            List.class);
+
+        int responseListSize = response.getBody().size();
+        HttpStatus responseStatus = response.getStatusCode();
+
+        assertEquals(responseListSize>=3, true, "checks that received List is equal or larger than 3");
+        assertEquals(responseStatus, HttpStatus.OK, "checks that received status is correct");
+
+        //deletes adventures when test is done
+        this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
+        this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure2.getId());
+        this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure3.getId());
+    }
 }
