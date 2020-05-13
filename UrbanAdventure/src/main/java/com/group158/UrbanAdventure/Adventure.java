@@ -41,9 +41,9 @@ public class Adventure {
 
     public void setGenre(String genre) { this.genre = genre; }
 
-    public int getNumberOfLocations() { return this.numberOfLocations; }
+    public int getNumberOfParts() { return this.numberOfParts; }
 
-    public void setNumberOfLocations(int numberOfLocations) { this.numberOfLocations = numberOfLocations; }
+    public void setNumberOfParts(int numberOfParts) { this.numberOfParts = numberOfParts; }
 
     public String getDescriptionText(){ return this.descriptionText; }
 
