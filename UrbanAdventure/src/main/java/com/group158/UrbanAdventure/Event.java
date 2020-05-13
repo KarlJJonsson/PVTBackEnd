@@ -11,24 +11,27 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 @JsonSubTypes({
     @Type(value = EventPrompt.class, name = "prompt"),
-    @Type(value = EventMessage.class, name = "message")
+    @Type(value = EventMessage.class, name = "message"),
+    @Type(value = EventMultipleChoice.class, name = "multipleChoice"),
+    @Type(value = EventLast.class, name = "last"),
+    @Type(value = EventEnd.class, name = "end")
 })
 
 public abstract class Event {
-    private int id;
+    private int index;
     private int path;
 
-    public Event(int id, int path){
-        this.id = id;
+    public Event(int index, int path){
+        this.index = index;
         this.path = path;
     }
 
-    public int getId(){
-        return id;
+    public int getIndex(){
+        return index;
     }
 
-    public void setId(int id){
-        this.id = id;
+    public void setIndex(int index){
+        this.index = index;
     }
 
     public int getPath(){

@@ -39,8 +39,8 @@ public class EventPrompt extends Event{
         return this.message;
     }
 
-    public EventPrompt(int id, int path, String message, String promptMessage, String correctAnswer, int wrongAnswerPath){
-        super(id, path);
+    public EventPrompt(int index, int path, String message, String promptMessage, String correctAnswer, int wrongAnswerPath){
+        super(index, path);
         this.message = message;
         this.promptMessage = promptMessage;
         this.wrongAnswerPath = wrongAnswerPath;

@@ -3,16 +3,16 @@ package com.group158.UrbanAdventure;
 import java.util.List;
 
 public class AdventurePart {
-    private int part;
+    private int index;
     private Location location;
     private List<Event> events;
 
-    public int getPart() {
-        return this.part;
+    public int getIndex() {
+        return this.index;
     }
 
-    public void setPart(int part) {
-        this.part = part;
+    public void setIndex(int part) {
+        this.index = part;
     }
 
     public Location getLocation() {
@@ -31,8 +31,8 @@ public class AdventurePart {
         this.events = events;
     }
 
-    public AdventurePart(int part, Location location, List<Event> events){
-        this.part = part;
+    public AdventurePart(int index, Location location, List<Event> events){
+        this.index = index;
         this.location = location;
         this.events = events;
     }
