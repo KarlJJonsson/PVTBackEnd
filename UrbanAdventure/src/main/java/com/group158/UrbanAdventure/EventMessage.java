@@ -22,12 +22,12 @@ public class EventMessage extends Event {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof EventEnd)) {
+        if (!(o instanceof EventMessage)) {
             return false;
         }
         EventMessage event = (EventMessage) o;
         return this.getIndex() == event.getIndex() 
         && this.getPath() == event.getPath() 
-        && Objects.equals(message, event.getMessage());
+        && this.message.equals(event.getMessage());
     }
 }

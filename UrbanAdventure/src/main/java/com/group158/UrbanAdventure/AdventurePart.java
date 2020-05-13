@@ -37,6 +37,7 @@ public class AdventurePart {
         this.events = events;
     }
 
+    @Override
     public boolean equals(Object object){
         if (object instanceof AdventurePart){
             AdventurePart adventurePart = (AdventurePart) object;

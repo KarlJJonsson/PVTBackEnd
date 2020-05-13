@@ -28,6 +28,6 @@ public class EventEnd extends Event {
         EventEnd event = (EventEnd) o;
         return this.getIndex() == event.getIndex() 
         && this.getPath() == event.getPath() 
-        && Objects.equals(message, event.getMessage());
+        && this.message.equals(event.getMessage());
     }
 }

@@ -32,13 +32,13 @@ public class EventItemReceive extends Event {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof EventEnd)) {
+        if (!(o instanceof EventItemReceive)) {
             return false;
         }
         EventItemReceive event = (EventItemReceive) o;
         return this.getIndex() == event.getIndex() 
         && this.getPath() == event.getPath() 
-        && Objects.equals(message, event.getMessage())
-        && Objects.equals(item, event.getItem());
+        && this.message.equals(event.getMessage())
+        && this.item.equals(event.getItem());
     }
 }

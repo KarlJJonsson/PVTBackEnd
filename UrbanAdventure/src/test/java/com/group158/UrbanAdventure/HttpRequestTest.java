@@ -1,7 +1,8 @@
 package com.group158.UrbanAdventure;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 public class HttpRequestTest {
 
     Testutilities testUtil = new Testutilities();
-    String jsonAdventure = testUtil.generateAdventureJsonString();
     Adventure adventure = testUtil.generateAdventure();
 
     @LocalServerPort
@@ -26,67 +26,89 @@ public class HttpRequestTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void testEquals(){
-        Adventure adv1 = testUtil.generateAdventure();
-        Adventure adv2 = testUtil.generateAdventure();
-        assertEquals(adv1, adv2);
-    }
-
-    @Test
     public void createAdventureTest(){
         ResponseEntity<String> response = this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
         String body = response.getBody();
-        adventure.setId(body);
-        System.out.println(adventure.getId());
-        jsonAdventure = testUtil.generateAdventureJsonStringWithId(body);
         HttpStatus status = response.getStatusCode();
-        assertEquals(HttpStatus.CREATED, status, "checks statuscode for /create");
+        assertEquals(HttpStatus.CREATED, status, "checks statuscode for creation");
+        assertEquals(body, adventure.getId(), "checks returned id is same as adventure id");
+
+        //deletes adventure when test is done
+        this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
     }
 
     @Test
-    public void createdAdventureShouldExist(){
-        createAdventureTest();
-        Adventure body = null;
-        ResponseEntity<Adventure> response = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/get/"+adventure.getId(),
+    public void createdAdventureShouldBeCorrect(){
+        this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
+
+        ResponseEntity<Adventure> getResponse = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/get/"+adventure.getId(),
             Adventure.class);
 
-        System.out.println(adventure.getId());
+        Adventure adventureFromDatabase = getResponse.getBody();
 
-        if(response.getBody() != null){
-            body = response.getBody();
-        }
-        else{
-            fail("body was Null.");
-        }
+        assertEquals(adventure, adventureFromDatabase, "checks that adventure exists in database and is correct");
 
-        System.out.println(adventure);
-        System.out.println(body);
-        
-
-        assertEquals(adventure.equals(body), true, "checks that adventure exists and is correct");
+        //deletes adventure when test is done
+        this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
     }
 
     @Test
     public void deleteAdventureTest(){
-        System.out.println(adventure.getId());
+        this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
+
+        ResponseEntity<Adventure> response1 = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/get/"+adventure.getId(),
+        Adventure.class);
+
+        Adventure response1Adventure = response1.getBody();
+
         this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
+
+        ResponseEntity<Adventure> response2 = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/get/"+adventure.getId(),
+            Adventure.class);
+
+        Adventure response2Adventure = response2.getBody();
+        HttpStatus response2Status = response2.getStatusCode();
+
+        assertEquals(response1Adventure, adventure, "checks if adventure has been posted correctly");
+        assertEquals(response2Adventure, null, "checks if adventure has been deleted correctly");
+        assertEquals(HttpStatus.NOT_FOUND, response2Status, "checks that httpstatus correctly responds with 404");
+    }
+
+    @Test
+    public void getAdventureByIdTest(){
+        this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
 
         ResponseEntity<Adventure> response = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/get/"+adventure.getId(),
             Adventure.class);
 
-        assertEquals(false, response.hasBody(), "Deletes entry, and checks if it's removed from database.");
+        Adventure responseAdventure = response.getBody();
+        HttpStatus responseStatus = response.getStatusCode();
+
+        assertEquals(adventure, responseAdventure, "checks that endpoint responds with correct adventure");
+        assertEquals(HttpStatus.OK, responseStatus, "checks that endpoint responds with correct Httpstatus");
+
+        //deletes adventure when test is done
+        this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
     }
 
-    // @Test
-    // public void getAllAdventureTitleShouldReturnListOfAdventure(){
+    @Test
+    public void getAllAdventureTitleShouldReturnListOfAdventure(){
+        this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
 
-    //     String expected = testUtil.generateAdventureJsonString();
+        ResponseEntity<List> response = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/search/"+adventure.getAdventureTitle(),
+            List.class);
 
-    //     String actual = ((Map) this.restTemplate.getForObject("https://group8-15.pvt.dsv.su.se/api/search/OnlyForTesting",
-    //         ArrayList.class).get(0)).toString();
+        String responseJsonAdventure = response.getBody().get(0).toString();
+        int responseListSize = response.getBody().size();
+        HttpStatus responseStatus = response.getStatusCode();
 
-    //     System.out.println(actual);
+        String jsonAdventure = testUtil.generateAdventureJsonStringWithId(adventure.getId());
 
-    //     assertEquals(expected, actual);
-    // }
+        assertEquals(jsonAdventure, responseJsonAdventure, "checks that received jsonAdventure is correct");
+        assertEquals(responseListSize>0, true, "checks that received List is larger than 0");
+        assertEquals(responseStatus, HttpStatus.OK, "checks that received status is correct");
+
+        //deletes adventure when test is done
+        this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
+    }
 }

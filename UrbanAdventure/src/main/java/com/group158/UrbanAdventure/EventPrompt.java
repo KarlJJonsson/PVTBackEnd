@@ -53,13 +53,13 @@ public class EventPrompt extends Event {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof EventEnd)) {
+        if (!(o instanceof EventPrompt)) {
             return false;
         }
         EventPrompt event = (EventPrompt) o;
         return this.getIndex() == event.getIndex() 
         && this.getPath() == event.getPath()
-        && Objects.equals(message, event.getMessage())
+        && this.message.equals(event.getMessage())
         && Objects.equals(promptMessage, event.getPromptMessage())
         && Objects.equals(correctAnswer, event.getCorrectAnswer())
         && Objects.equals(wrongAnswerPath, event.getWrongAnswerPath());
