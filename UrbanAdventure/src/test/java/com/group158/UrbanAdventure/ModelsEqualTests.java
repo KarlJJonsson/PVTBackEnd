@@ -8,8 +8,13 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * Class for testing equals methods for all of the models. Unnecessary in one way, but was created because of
+ * equal method problems in deep hierarchy.
+ */
+
 @SpringBootTest
-public class ModelsTest {
+public class ModelsEqualTests {
 
     Testutilities testUtil = new Testutilities();
     Adventure adventure = testUtil.generateAdventure();

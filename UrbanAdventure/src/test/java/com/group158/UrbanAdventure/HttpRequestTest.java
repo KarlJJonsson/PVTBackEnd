@@ -13,9 +13,15 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * Class for testing endpoints. Integrationtest to ensure objects are passed correctly between REST and database.
+ * Tests passes real objects between REST and database, mocking is not done here. Uses TestUtilities for resources.
+ */
+
 @SpringBootTest (webEnvironment = WebEnvironment.RANDOM_PORT)
 public class HttpRequestTest {
 
+    //prerequisites
     Testutilities testUtil = new Testutilities();
     Adventure adventure = testUtil.generateAdventure();
 
@@ -25,11 +31,15 @@ public class HttpRequestTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @Test
+    @Test //tests /api/create endpoint
     public void createAdventureTest(){
+        //post adventure to database
         ResponseEntity<String> response = this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
-        String body = response.getBody();
+        
+        //extracts adventure ID and statusCode
+        String body = response.getBody(); //returns ID for posted adventure
         HttpStatus status = response.getStatusCode();
+
         assertEquals(HttpStatus.CREATED, status, "checks statuscode for creation");
         assertEquals(body, adventure.getId(), "checks returned id is same as adventure id");
 
@@ -37,13 +47,16 @@ public class HttpRequestTest {
         this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
     }
 
-    @Test
+    @Test //tests that /api/create correctly puts adventure in database
     public void createdAdventureShouldBeCorrect(){
+        //post request
         this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
 
+        //get request for same adventure as above request
         ResponseEntity<Adventure> getResponse = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/get/"+adventure.getId(),
             Adventure.class);
 
+        //extract adventure from getResponse
         Adventure adventureFromDatabase = getResponse.getBody();
 
         assertEquals(adventure, adventureFromDatabase, "checks that adventure exists in database and is correct");
@@ -52,20 +65,26 @@ public class HttpRequestTest {
         this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
     }
 
-    @Test
+    @Test //tests /api/remove/{id}
     public void deleteAdventureTest(){
+        //post 1 adventure to database
         this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
 
+        //get request to ensure above post worked correctly
         ResponseEntity<Adventure> response1 = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/get/"+adventure.getId(),
         Adventure.class);
 
+        //extracts adventure from response1
         Adventure response1Adventure = response1.getBody();
 
+        //Delete request to database for same Adventure as the above 2 requests
         this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
 
+        //get request to ensure Adventure has been deleted
         ResponseEntity<Adventure> response2 = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/get/"+adventure.getId(),
             Adventure.class);
 
+        //extracts adventure and code from delete request, these should be null and 404
         Adventure response2Adventure = response2.getBody();
         HttpStatus response2Status = response2.getStatusCode();
 
@@ -74,13 +93,16 @@ public class HttpRequestTest {
         assertEquals(HttpStatus.NOT_FOUND, response2Status, "checks that httpstatus correctly responds with 404");
     }
 
-    @Test
+    @Test //tests /api/get/{id} 
     public void getAdventureByIdTest(){
+        //post 1 adventure to database
         this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
 
+        //get request to /api/get{id}
         ResponseEntity<Adventure> response = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/get/"+adventure.getId(),
             Adventure.class);
 
+        // extracts adventure and statusCode
         Adventure responseAdventure = response.getBody();
         HttpStatus responseStatus = response.getStatusCode();
 
@@ -91,17 +113,21 @@ public class HttpRequestTest {
         this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
     }
 
-    @Test
+    @Test //tests api/search/{adventureTitle}
     public void getAllAdventureTitleShouldReturnListOfAdventure(){
+        //posts 1 adventure to database
         this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
 
+        //get request to api/search/{adventureTitle}
         ResponseEntity<List> response = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/search/"+adventure.getAdventureTitle(),
             List.class);
 
+        //extracts Adventure in JSON die to responseType for request being List. Extracts list size and statusCode from response
         String responseJsonAdventure = response.getBody().get(0).toString();
         int responseListSize = response.getBody().size();
         HttpStatus responseStatus = response.getStatusCode();
 
+        // generates an Adventure in JSON due to responseType being List (Not possible to extract Adventure from Object)
         String jsonAdventure = testUtil.generateAdventureJsonStringWithId(adventure.getId());
 
         assertEquals(jsonAdventure, responseJsonAdventure, "checks that received jsonAdventure is correct");
@@ -112,9 +138,10 @@ public class HttpRequestTest {
         this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
     }
 
-    @Test
+    @Test //tests api/all
     public void getAllShouldReturnAllAdventures(){
 
+        //creates 3 adventures
         adventure.setAdventureTitle("OnlyForTesting1");
 
         Adventure adventure2 = testUtil.generateAdventure();
@@ -123,13 +150,16 @@ public class HttpRequestTest {
         Adventure adventure3 = testUtil.generateAdventure();
         adventure3.setAdventureTitle("OnlyForTesting3");
 
+        //posts adventures to database
         this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
         this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure2, String.class);
         this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure3, String.class);
 
+        //get request to /api/all
         ResponseEntity<List> response = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/all/",
             List.class);
 
+        // extracts size of list and statusCode
         int responseListSize = response.getBody().size();
         HttpStatus responseStatus = response.getStatusCode();
 
