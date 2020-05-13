@@ -37,4 +37,14 @@ public class Choice {
         this.path = path;
         return this;
     }
+
+    public boolean equals(Object obj){
+        if(obj instanceof Choice){
+            Choice choice = (Choice) obj;
+            if(this.getPath() == choice.getPath() && this.getText().equals(choice.getText())){
+                return true;
+            }
+        }
+        return false;
+    }
 }

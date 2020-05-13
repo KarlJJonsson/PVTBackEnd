@@ -26,10 +26,16 @@ public class HttpRequestTest {
     private TestRestTemplate restTemplate;
 
     @Test
+    public void testEquals(){
+        Adventure adv1 = testUtil.generateAdventure();
+        Adventure adv2 = testUtil.generateAdventure();
+        assertEquals(adv1, adv2);
+    }
+
+    @Test
     public void createAdventureTest(){
         ResponseEntity<String> response = this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
         String body = response.getBody();
-        System.out.println(body);
         adventure.setId(body);
         System.out.println(adventure.getId());
         jsonAdventure = testUtil.generateAdventureJsonStringWithId(body);
@@ -39,10 +45,13 @@ public class HttpRequestTest {
 
     @Test
     public void createdAdventureShouldExist(){
+        createAdventureTest();
         Adventure body = null;
         ResponseEntity<Adventure> response = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/get/"+adventure.getId(),
             Adventure.class);
-        
+
+        System.out.println(adventure.getId());
+
         if(response.getBody() != null){
             body = response.getBody();
         }
@@ -50,11 +59,16 @@ public class HttpRequestTest {
             fail("body was Null.");
         }
 
-        assertEquals(adventure, body, "checks that adventure exists and is correct");
+        System.out.println(adventure);
+        System.out.println(body);
+        
+
+        assertEquals(adventure.equals(body), true, "checks that adventure exists and is correct");
     }
 
     @Test
     public void deleteAdventureTest(){
+        System.out.println(adventure.getId());
         this.restTemplate.delete("https://group8-15.pvt.dsv.su.se/api/remove/"+adventure.getId());
 
         ResponseEntity<Adventure> response = this.restTemplate.getForEntity("https://group8-15.pvt.dsv.su.se/api/get/"+adventure.getId(),
