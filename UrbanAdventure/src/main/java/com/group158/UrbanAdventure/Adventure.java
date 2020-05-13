@@ -16,11 +16,6 @@ public class Adventure {
     private String descriptionText;
     private String author;
     private List<AdventurePart> parts;
-    //private String type;
-
-    //public String getType() { return this.type; }
-
-    //public void setType(String type) {this.type = type; }
 
     public String getId() {
         return this.id;
@@ -48,7 +43,6 @@ public class Adventure {
 
     public int getNumberOfLocations() { return this.numberOfLocations; }
 
-    // Behöver vi verkligen en setter för numberOfLocations?
     public void setNumberOfLocations(int numberOfLocations) { this.numberOfLocations = numberOfLocations; }
 
     public String getDescriptionText(){ return this.descriptionText; }
@@ -67,7 +61,6 @@ public class Adventure {
         this.parts = parts;
     }
 
-    // Tog bort type ur constructorn, men kommenterade bara bort bland variabeln och setter och getter
     public Adventure(String adventureTitle, int length, String genre, int numberOfParts, String descriptionText, String author, List<AdventurePart> parts){
         this.id = UUID.randomUUID().toString(); //Genereras med UUID, dvs en universal unique pseudo random generator
         this.adventureTitle = adventureTitle;
