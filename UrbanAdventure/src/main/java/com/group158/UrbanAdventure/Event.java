@@ -14,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
     @Type(value = EventMessage.class, name = "message"),
     @Type(value = EventMultipleChoice.class, name = "multipleChoice"),
     @Type(value = EventLast.class, name = "last"),
-    @Type(value = EventEnd.class, name = "end")
+    @Type(value = EventEnd.class, name = "end"),
+    @Type(value = EventItemReceive.class, name = "itemReceive")
 })
 
 public abstract class Event {
