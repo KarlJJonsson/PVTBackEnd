@@ -1,4 +1,4 @@
-package com.group158.UrbanAdventure.Models;
+package com.group158.UrbanAdventure;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

@@ -1,4 +1,4 @@
-package com.group158.UrbanAdventure.Models;
+package com.group158.UrbanAdventure;
 
 import java.util.List;
 
