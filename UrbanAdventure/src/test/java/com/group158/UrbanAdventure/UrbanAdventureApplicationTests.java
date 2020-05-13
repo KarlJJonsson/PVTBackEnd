@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.group158.UrbanAdventure.Models.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

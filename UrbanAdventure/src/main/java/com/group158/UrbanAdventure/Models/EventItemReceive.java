@@ -1,4 +1,4 @@
-package com.group158.UrbanAdventure;
+package com.group158.UrbanAdventure.Models;
 
 public class EventItemReceive extends Event{
     private String message;
