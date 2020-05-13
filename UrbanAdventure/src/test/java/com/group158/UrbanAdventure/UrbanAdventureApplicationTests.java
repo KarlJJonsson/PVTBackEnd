@@ -1,49 +1,50 @@
-package com.group158.UrbanAdventure;
+// package com.group158.UrbanAdventure;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+// import static org.junit.jupiter.api.Assertions.assertEquals;
+// import static org.mockito.Mockito.verify;
+// import static org.mockito.Mockito.when;
 
 
-import java.util.ArrayList;
-import java.util.List;
+// import java.util.ArrayList;
+// import java.util.List;
 
-import org.junit.jupiter.api.Test;
-import org.mockito.*;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.mockito.*;
+// import org.springframework.boot.test.context.SpringBootTest;
+// import org.springframework.test.web.servlet.ResultActions;
 
-@SpringBootTest
-class UrbanAdventureApplicationTests {
+// @SpringBootTest
+// class UrbanAdventureApplicationTests {
 
-	@InjectMocks
-	private AdventureController adventureController;
+// 	@InjectMocks
+// 	private AdventureController adventureController;
 
-	@Mock
-	private AdventureRepository adventureRepository;
+// 	@Mock
+// 	private AdventureRepository adventureRepository;
 
-    public void init() {
-        MockitoAnnotations.initMocks(this);
-	}
+//     public void init() {
+//         MockitoAnnotations.initMocks(this);
+// 	}
 	
-	@Test
-	void TestGetAllStoriesController() {
-		List<Event> events = new ArrayList<Event>();
-		events.add(new EventPrompt(1, 2, "Gå till den närmsta gatlyktan. Där finns en galaktisk krypteringsnyckel som gör att Hekate inte kan avlyssna oss.", "Mata in koden på lyktstolpen", 
-			"G8:118", 1));
-		events.add(new EventMessage(2, 3, "Bra jobbat. Ni är vid templet. I er värld kan det vara någon annan helig plats av något slag. Det är svårt att säga. I min värld står det ett Ishirs tempel. För att komma vidare måste ni räkna ut hur många trappsteg trappan upp till templet har. När ni vet antalet trappsteg, gå närmare templet..."));
-		List<AdventurePart> parts = new ArrayList<AdventurePart>();
-		parts.add(new AdventurePart(1, new Location(30,59.2936735,17.9921344), events));
-		List<Adventure> expected = new ArrayList<Adventure>();
-		expected.add(new Adventure("Battle of Teleplan", 2, "horror", 2, "DescriptiveText", "Anonymous", parts));
+	// @Test
+	// void TestGetAllStoriesController() {
+	// 	List<Event> events = new ArrayList<Event>();
+	// 	events.add(new EventPrompt(1, 2, "Gå till den närmsta gatlyktan. Där finns en galaktisk krypteringsnyckel som gör att Hekate inte kan avlyssna oss.", "Mata in koden på lyktstolpen", 
+	// 		"G8:118", 1));
+	// 	events.add(new EventMessage(2, 3, "Bra jobbat. Ni är vid templet. I er värld kan det vara någon annan helig plats av något slag. Det är svårt att säga. I min värld står det ett Ishirs tempel. För att komma vidare måste ni räkna ut hur många trappsteg trappan upp till templet har. När ni vet antalet trappsteg, gå närmare templet..."));
+	// 	List<AdventurePart> parts = new ArrayList<AdventurePart>();
+	// 	parts.add(new AdventurePart(1, new Location(30,59.2936735,17.9921344), events));
+	// 	List<Adventure> expected = new ArrayList<Adventure>();
+	// 	expected.add(new Adventure("Battle of Teleplan", 2, "horror", 2, "DescriptiveText", "Anonymous", parts));
 
-		when(adventureRepository.findAll()).thenReturn(expected);
+	// 	when(adventureRepository.findAll()).thenReturn(expected);
 
-		List<Adventure> result = adventureController.getAllStories().getBody();
+	// 	List<Adventure> result = adventureController.getAllStories().getBody();
 
-		verify(adventureRepository).findAll();
+	// 	verify(adventureRepository).findAll();
 
-		assertEquals(expected, result);
-	}
+	// 	assertEquals(expected, result);
+	// }
 
 	// @Test
 	// void testGetByAdventureTitle(){
@@ -64,4 +65,4 @@ class UrbanAdventureApplicationTests {
 
 	// 	assertEquals(expected.get(), result);
 	// }
-}
+// }

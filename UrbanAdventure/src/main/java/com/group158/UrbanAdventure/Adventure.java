@@ -21,6 +21,10 @@ public class Adventure {
         return this.id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getAdventureTitle() {
         return this.adventureTitle;
     }
@@ -70,6 +74,20 @@ public class Adventure {
         this.descriptionText = descriptionText;
         this.author = author;
         this.parts = parts;
+    }
+
+    public boolean equals(Object object){
+        if (this == object){
+            return true;
+        }
+        
+        if (object instanceof Adventure){
+            Adventure otherObject = (Adventure) object;
+            if(this.getId().equals(otherObject.getId())){
+                return true;
+            }
+        }
+        return false;
 
     }
 
