@@ -29,7 +29,9 @@ public class HttpRequestTest {
     public void createAdventureTest(){
         ResponseEntity<String> response = this.restTemplate.postForEntity("https://group8-15.pvt.dsv.su.se/api/create", adventure, String.class);
         String body = response.getBody();
+        System.out.println(body);
         adventure.setId(body);
+        System.out.println(adventure.getId());
         jsonAdventure = testUtil.generateAdventureJsonStringWithId(body);
         HttpStatus status = response.getStatusCode();
         assertEquals(HttpStatus.CREATED, status, "checks statuscode for /create");
