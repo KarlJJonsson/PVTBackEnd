@@ -25,32 +25,23 @@ public class Testutilities {
         List<Event> events = new ArrayList<Event>();
 
         //populate List and create Events
-        events.add(new EventPrompt(0, 1, "Test message.", "Test promptMessage.", "Test correctAnswer.", 0));
-        events.add(new EventMessage(1, 0, "Test message."));
-        
-        //create List for Adventure
-        List<AdventurePart> parts = new ArrayList<AdventurePart>();
-
-        //populate List, create AdventureParts and set events
-        parts.add(new AdventurePart(0, new Location(30, 30.5, 30.5), events));
-        parts.add(new AdventurePart(1, new Location(20, 40.5, 40.5), events));
+        events.add(new EventLocation(0, 1, new Location(30, 30.5, 30.5), true));
+        events.add(new EventPrompt(1, 2, "Test message.", "Test promptMessage.", "Test correctAnswer.", 1));
+        events.add(new EventMessage(2, 0, "Test message."));
 
         //create Adventure and set Parts
-        Adventure adventure = new Adventure("OnlyForTesting", 2, "genre", 2, "DescriptiveText.", "Anonymous", parts, 0, 0);
+        Adventure adventure = new Adventure("OnlyForTesting", 2, "genre", "DescriptiveText.", "Anonymous", events, 0, 0);
 
         //return Adventure
         return adventure;
     }
 
     public String generateAdventureJsonStringWithId(String id){
-        String adventureJsonString = "{id="+id+", adventureTitle=OnlyForTesting,"+
-            " length=2, genre=genre, numberOfParts=2, descriptionText=DescriptiveText., author=Anonymous,"+
-            " parts=[{index=0, location={latitude=30.5, longitude=30.5, radius=30}, events=[{type=prompt,"+
-            " index=0, path=1, message=Test message., promptMessage=Test promptMessage., correctAnswer=Test"+
-            " correctAnswer., wrongAnswerPath=0}, {type=message, index=1, path=0, message=Test message.}]},"+
-            " {index=1, location={latitude=40.5, longitude=40.5, radius=20}, events=[{type=prompt, index=0,"+
-            " path=1, message=Test message., promptMessage=Test promptMessage., correctAnswer=Test correctAnswer.,"+
-            " wrongAnswerPath=0}, {type=message, index=1, path=0, message=Test message.}]}]}";
+        String adventureJsonString = String.format("{id=%s, adventureTitle=OnlyForTesting, length=2, genre=genre, "+
+        "descriptionText=DescriptiveText., author=Anonymous, events=[{type=location, index=0, path=1, location={latitude=30.5, "+
+        "longitude=30.5, radius=30}, visible=true}, {type=prompt, index=1, path=2, message=Test message., "+
+        "promptMessage=Test promptMessage., correctAnswer=Test correctAnswer., wrongAnswerPath=1}, {type=message, index=2, path=0, "+
+        "message=Test message.}], thumbsUp=0, thumbsDown=0}", id);
         return adventureJsonString;
     }
 }
