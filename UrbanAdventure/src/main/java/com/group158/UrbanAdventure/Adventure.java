@@ -17,6 +17,25 @@ public class Adventure {
     private String author;
     private List<AdventurePart> parts;
 
+    private int thumbsUp;
+    private int thumbsDown;
+
+    public int getThumbsDown() {
+        return this.thumbsDown;
+    }
+
+    public void setThumbsDown(int thumbsDown) {
+        this.thumbsDown = thumbsDown;
+    }
+
+    public int getThumbsUp() {
+        return this.thumbsUp;
+    }
+
+    public void setThumbsUp(int thumbsUp) {
+        this.thumbsUp = thumbsUp;
+    }
+
     public String getId() {
         return this.id;
     }
