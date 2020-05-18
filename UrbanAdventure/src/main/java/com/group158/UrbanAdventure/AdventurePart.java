@@ -2,6 +2,7 @@ package com.group158.UrbanAdventure;
 
 import java.util.List;
 
+@Deprecated
 public class AdventurePart {
     private int index;
     private Location location;

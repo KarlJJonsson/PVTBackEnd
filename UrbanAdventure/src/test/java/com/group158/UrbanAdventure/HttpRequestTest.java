@@ -3,7 +3,9 @@ package com.group158.UrbanAdventure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import java.util.Map;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -173,5 +175,18 @@ public class HttpRequestTest {
         this.restTemplate.delete(url+"/api/remove/"+adventure.getId());
         this.restTemplate.delete(url+"/api/remove/"+adventure2.getId());
         this.restTemplate.delete(url+"/api/remove/"+adventure3.getId());
+    }
+
+    @AfterAll
+    public void removeTestObjectFromDB(){
+        ResponseEntity<List> response = this.restTemplate.getForEntity(url+"/api/search/"+adventure.getAdventureTitle(),
+        List.class);
+
+        List<Map<String, String>> responseList = response.getBody();
+
+        for (Map<String, String> map : responseList) {
+            String id = map.get("id");
+            this.restTemplate.delete(url+"/api/remove/"+id);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.group158.UrbanAdventure;
 
+@Deprecated
 public class EventLast extends Event {
     private String message;
     private int nextPartIndex;
