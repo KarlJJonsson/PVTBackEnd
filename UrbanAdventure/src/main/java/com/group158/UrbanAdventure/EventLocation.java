@@ -6,6 +6,30 @@ public class EventLocation extends Event{
     boolean triggered;
     boolean despawn;
     boolean currentlyActive;
+    
+    public boolean getTriggered() {
+        return this.triggered;
+    }
+
+    public void setTriggered(boolean triggered) {
+        this.triggered = triggered;
+    }
+
+    public boolean getDespawn() {
+        return this.despawn;
+    }
+
+    public void setDespawn(boolean despawn) {
+        this.despawn = despawn;
+    }
+
+    public boolean getCurrentlyActive() {
+        return this.currentlyActive;
+    }
+
+    public void setCurrentlyActive(boolean currentlyActive) {
+        this.currentlyActive = currentlyActive;
+    }
 
     public boolean getVisible() {
         return this.visible;
@@ -15,7 +39,7 @@ public class EventLocation extends Event{
         this.visible = visible;
     }
 
-    public EventLocation(int index, int path, Location location, boolean visible) {
+    public EventLocation(int index, int path, Location location, boolean visible, boolean triggered, boolean despawn, boolean currentlyActive) {
         super(index, path);
         this.location = location;
         this.visible = visible;
