@@ -12,10 +12,9 @@ public class Adventure {
     private String adventureTitle;
     private int length;
     private String genre;
-    private int numberOfParts;
     private String descriptionText;
     private String author;
-    private List<AdventurePart> parts;
+    private List<Event> events;
 
     private int thumbsUp;
     private int thumbsDown;
@@ -64,10 +63,6 @@ public class Adventure {
 
     public void setGenre(String genre) { this.genre = genre; }
 
-    public int getNumberOfParts() { return this.numberOfParts; }
-
-    public void setNumberOfParts(int numberOfParts) { this.numberOfParts = numberOfParts; }
-
     public String getDescriptionText(){ return this.descriptionText; }
 
     public void setDescriptionText(String descriptionText) { this.descriptionText = descriptionText; }
@@ -76,23 +71,24 @@ public class Adventure {
 
     public void setAuthor(String author) { this.author = author; }
 
-    public List<AdventurePart> getParts() {
-        return this.parts;
+    public List<Event> getEvents() {
+        return this.events;
     }
 
-    public void setParts(List<AdventurePart> parts) {
-        this.parts = parts;
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 
-    public Adventure(String adventureTitle, int length, String genre, int numberOfParts, String descriptionText, String author, List<AdventurePart> parts){
+    public Adventure(String adventureTitle, int length, String genre, String descriptionText, String author, List<Event> events, int thumbsUp, int thumbsDown){
         this.id = UUID.randomUUID().toString(); //Genereras med UUID, dvs en universal unique pseudo random generator
         this.adventureTitle = adventureTitle;
         this.length = length;
         this.genre = genre;
-        this.numberOfParts = numberOfParts;
         this.descriptionText = descriptionText;
         this.author = author;
-        this.parts = parts;
+        this.events = events;
+        this.thumbsUp = thumbsUp;
+        this.thumbsDown = thumbsDown;
     }
 
     @Override
@@ -103,10 +99,11 @@ public class Adventure {
                 && this.adventureTitle.equals(adventure.adventureTitle)
                 && this.length == adventure.length
                 && this.genre.equals(adventure.genre)
-                && this.numberOfParts == adventure.numberOfParts
                 && this.descriptionText.equals(adventure.descriptionText)
                 && this.author.equals(adventure.author)
-                && this.parts.equals(adventure.parts)
+                && this.events.equals(adventure.events)
+                && this.thumbsUp == adventure.thumbsUp
+                && this.thumbsDown == adventure.thumbsDown
             ){
                 return true;
             }

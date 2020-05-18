@@ -36,7 +36,7 @@ public class Testutilities {
         parts.add(new AdventurePart(1, new Location(20, 40.5, 40.5), events));
 
         //create Adventure and set Parts
-        Adventure adventure = new Adventure("OnlyForTesting", 2, "genre", 2, "DescriptiveText.", "Anonymous", parts);
+        Adventure adventure = new Adventure("OnlyForTesting", 2, "genre", 2, "DescriptiveText.", "Anonymous", parts, 0, 0);
 
         //return Adventure
         return adventure;
