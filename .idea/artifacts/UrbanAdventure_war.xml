@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="UrbanAdventure:war">
+    <output-path>$PROJECT_DIR$/UrbanAdventure/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>UrbanAdventure</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="UrbanAdventure-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="UrbanAdventure:war exploded" />
+    </root>
+  </artifact>
+</component>

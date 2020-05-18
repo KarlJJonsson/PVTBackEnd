@@ -1,9 +1,11 @@
 package com.group158.UrbanAdventure;
 
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
 @Document(collection = "Users")
-public class User{
+public class User extends UserDetailsServiceAutoConfiguration {
 
     private String name;
     private String userName;
