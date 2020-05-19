@@ -20,12 +20,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/user")
 
 public class UserController{
-    @Autowired
+   /* @Autowired
     UserRepository userRepository;
 
     @GetMapping("/allUsers")
     public ResponseEntity<List<Adventure>> getAllAdventures(){
         List<User> users = userRepository.findAll();
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);*/
     }
-}
