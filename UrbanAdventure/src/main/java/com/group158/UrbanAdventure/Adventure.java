@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
 @Document(collection = "Adventures")
 public class Adventure {
     private String id; // tog bort annoteringen @id, den försökte göra om string till int, vet ej orsak

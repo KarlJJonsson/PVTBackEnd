@@ -36,7 +36,6 @@ public class AdventureController {
     @PostMapping("/create")
     public ResponseEntity<String> createAdventure(@RequestBody Adventure adventure) {
         adventureRepository.save(adventure);
-        System.out.println("{\n\n\n\n\n\n\n\n\n\n\n"+adventure.getId());
         return new ResponseEntity<String>(adventure.getId(), HttpStatus.CREATED);
     }
 
