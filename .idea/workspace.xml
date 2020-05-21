@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6d920582-81db-4155-a96b-ae633ed4893c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/UrbanAdventure/src/main/java/com/group158/UrbanAdventure/Adventure.java" beforeDir="false" afterPath="$PROJECT_DIR$/UrbanAdventure/src/main/java/com/group158/UrbanAdventure/Adventure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UrbanAdventure/src/main/java/com/group158/UrbanAdventure/User/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/UrbanAdventure/src/main/java/com/group158/UrbanAdventure/User/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UrbanAdventure/src/main/java/com/group158/UrbanAdventure/User/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/UrbanAdventure/src/main/java/com/group158/UrbanAdventure/User/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UrbanAdventure/src/main/java/com/group158/UrbanAdventure/User/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/UrbanAdventure/src/main/java/com/group158/UrbanAdventure/User/UserRepository.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Basic-Auth-Implementation" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1c7PDEqGPTDcCcTiAHCsQaLFvTq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunManager">
+    <configuration name="UrbanAdventureApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="UrbanAdventure" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.group158.UrbanAdventure.UrbanAdventureApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6d920582-81db-4155-a96b-ae633ed4893c" name="Default Changelist" comment="" />
+      <created>1589876536386</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1589876536386</updated>
+      <workItem from="1589876537960" duration="387000" />
+      <workItem from="1589876929924" duration="4245000" />
+      <workItem from="1589919227107" duration="1565000" />
+      <workItem from="1589963744268" duration="583000" />
+      <workItem from="1589970307636" duration="1058000" />
+      <workItem from="1589987798570" duration="2600000" />
+      <workItem from="1590008481018" duration="10910000" />
+    </task>
+    <task id="LOCAL−00001" summary="added maven files">
+      <created>1589876739070</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1589876739070</updated>
+    </task>
+    <task id="LOCAL−00002" summary="Basic Security intro...">
+      <created>1589886101436</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1589886101436</updated>
+    </task>
+    <task id="LOCAL−00003" summary="Basic Security intro...">
+      <created>1590008231693</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1590008231693</updated>
+    </task>
+    <task id="LOCAL−00004" summary="Small steps towards a basic security...">
+      <created>1590044919557</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1590044919557</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added maven files" />
+    <MESSAGE value="Basic Security intro..." />
+    <MESSAGE value="Small steps towards a basic security..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Small steps towards a basic security..." />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="609" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589876891246">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="609" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1589876891246" />
+    <state x="1073" y="227" key="#com.intellij.ide.util.MemberChooser" timestamp="1590040939772">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="1073" y="227" key="#com.intellij.ide.util.MemberChooser/0.23.1680.1027@0.23.1680.1027" timestamp="1590040939772" />
+    <state x="973" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1590041020284">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="973" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1590041020284" />
+    <state x="572" y="121" key="CommitChangelistDialog2" timestamp="1590044919404">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="572" y="121" key="CommitChangelistDialog2/0.23.1680.1027@0.23.1680.1027" timestamp="1590044919404" />
+    <state width="1087" height="280" key="GridCell.Tab.0.bottom" timestamp="1590065983091">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1087" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1590065983091" />
+    <state width="1087" height="280" key="GridCell.Tab.0.center" timestamp="1590065983090">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1087" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1590065983090" />
+    <state width="1087" height="280" key="GridCell.Tab.0.left" timestamp="1590065983090">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1087" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1590065983090" />
+    <state width="1087" height="280" key="GridCell.Tab.0.right" timestamp="1590065983091">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1087" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1590065983091" />
+    <state width="1087" height="280" key="GridCell.Tab.1.bottom" timestamp="1590065983091">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1087" height="280" key="GridCell.Tab.1.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1590065983091" />
+    <state width="1087" height="280" key="GridCell.Tab.1.center" timestamp="1590065983091">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1087" height="280" key="GridCell.Tab.1.center/0.23.1680.1027@0.23.1680.1027" timestamp="1590065983091" />
+    <state width="1087" height="280" key="GridCell.Tab.1.left" timestamp="1590065983091">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1087" height="280" key="GridCell.Tab.1.left/0.23.1680.1027@0.23.1680.1027" timestamp="1590065983091" />
+    <state width="1087" height="280" key="GridCell.Tab.1.right" timestamp="1590065983091">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1087" height="280" key="GridCell.Tab.1.right/0.23.1680.1027@0.23.1680.1027" timestamp="1590065983091" />
+    <state x="860" y="276" key="Vcs.Push.Dialog.v2" timestamp="1590044934192">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="860" y="276" key="Vcs.Push.Dialog.v2/0.23.1680.1027@0.23.1680.1027" timestamp="1590044934192" />
+    <state x="994" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590008406133">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="994" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.1027@0.23.1680.1027" timestamp="1590008406133" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/PVTBackEnd$UrbanAdventureApplication.ic" NAME="UrbanAdventureApplication Coverage Results" MODIFIED="1590011668726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>
