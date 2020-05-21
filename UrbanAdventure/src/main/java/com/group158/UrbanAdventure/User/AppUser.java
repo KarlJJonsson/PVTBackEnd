@@ -6,7 +6,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Users")
@@ -25,15 +24,10 @@ public class AppUser {
     @Size(min = 5, max = 50)
     private String password;
 
-    @Id
-    private int id;
-
-
     public AppUser() {
     }
 
-    public AppUser(int id, String email, String name, String password) {
-        this.id = id;
+    public AppUser(String email, String name, String password) {
         this.email = email;
         this.name = name;
         this.password = password;
@@ -61,14 +55,6 @@ public class AppUser {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

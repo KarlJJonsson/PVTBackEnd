@@ -30,16 +30,12 @@ public class AppUserDetailsService implements UserDetailsService{
         AppUser user;
         Optional<AppUser> response = userRepository.findByEmail(username);
         if(response.isPresent()) {
-            System.out.println(passwordEncoder().encode("password"));
             user = response.get();
             List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("USER")); 
             return new User(user.getEmail(), user.getPassword(), authorities);
         }
         else{
             System.out.println(username);
-            System.out.println(passwordEncoder().encode("password"));
-            AppUser temp = new AppUser(1, username, "test", passwordEncoder().encode("password"));
-            userRepository.save(temp);
             throw new UsernameNotFoundException(String.format("User with name '%s' was not found", username));
         }
     }
