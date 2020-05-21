@@ -1,15 +1,19 @@
 package com.group158.UrbanAdventure.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 
 @Document(collection = "Users")
 public class User {
-    
+
     public String name;
     @Id
     public String email;
+
+    @JsonIgnore
     public String password;
     
     public User() {}

@@ -3,12 +3,14 @@ package com.group158.UrbanAdventure;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Adventures")
 public class Adventure {
+    @Id
     private String id; // tog bort annoteringen @id, den försökte göra om string till int, vet ej orsak
-                       // men någonting under the hood som bråkade
+                       // men någonting under the hood som bråkade, tror att det var för att du inte använde annotation.Id
     private String adventureTitle;
     private int length;
     private String genre;
