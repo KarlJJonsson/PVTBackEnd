@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Users")
-public class AppUser {
+public class User {
 
     @NotBlank
     @Email
@@ -24,10 +24,10 @@ public class AppUser {
     @Size(min = 5, max = 50)
     private String password;
 
-    public AppUser() {
+    public User() {
     }
 
-    public AppUser(String email, String name, String password) {
+    public User(String email, String name, String password) {
         this.email = email;
         this.name = name;
         this.password = password;
@@ -61,10 +61,10 @@ public class AppUser {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof AppUser)) {
+        if (!(o instanceof User)) {
             return false;
         }
-        AppUser user = (AppUser) o;
+        User user = (User) o;
         return this.email.equals(user.email);
     }
 

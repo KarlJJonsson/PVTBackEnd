@@ -23,8 +23,8 @@ import org.springframework.http.ResponseEntity;
 @SpringBootTest (webEnvironment = WebEnvironment.RANDOM_PORT)
 public class HttpRequestTest {
 
-    String url = "https://group8-15.pvt.dsv.su.se"; //for deployment
-    // String url = "http://localhost:8080"; //for local testing purposes
+    // String url = "https://group8-15.pvt.dsv.su.se"; //for deployment
+    String url = "http://localhost:8080"; //for local testing purposes
 
     //prerequisites
     Testutilities testUtil = new Testutilities();

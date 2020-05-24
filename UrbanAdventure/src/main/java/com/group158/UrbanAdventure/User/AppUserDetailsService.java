@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,14 +23,15 @@ public class AppUserDetailsService implements UserDetailsService{
 		return new BCryptPasswordEncoder();
 	}
 
+    //nedan används två olika classen vid namn User, därmed lite förvirrande. Har kommenterat dessa rader
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-        AppUser user;
-        Optional<AppUser> response = userRepository.findByEmail(username);
+        com.group158.UrbanAdventure.User.User user; //Vår egen User class
+        Optional<com.group158.UrbanAdventure.User.User> response = userRepository.findByEmail(username);
         if(response.isPresent()) {
             user = response.get();
             List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("USER")); 
-            return new User(user.getEmail(), user.getPassword(), authorities);
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities); //spring security egen User class
         }
         else{
             System.out.println(username);
