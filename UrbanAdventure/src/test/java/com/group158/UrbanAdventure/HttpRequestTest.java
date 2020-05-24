@@ -10,13 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestOperations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -30,7 +27,7 @@ import org.springframework.http.HttpMethod;
 public class HttpRequestTest {
 
     // String url = "https://group8-15.pvt.dsv.su.se"; //for deployment
-    String url = "http://localhost:8080"; //for local testing purposes
+    String url = "http://192.168.1.99:8080"; //for local testing purposes
 
     //prerequisites
     Testutilities testUtil = new Testutilities();
@@ -43,11 +40,6 @@ public class HttpRequestTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
-
-    @Bean
-    RestOperations rest(RestTemplateBuilder restTemplateBuilder) {
-    return restTemplateBuilder.basicAuthentication("karl.karbin@hotmail.com", "password2").build();
-}
 
     @Test //tests /api/create endpoint
     public void createAdventureTest(){
@@ -163,14 +155,16 @@ public class HttpRequestTest {
 
     @Test
     public void getAllShouldReturnOk(){
-        // headers.set("Authorization", "Basic a2FybC5rYXJiaW5AaG90bWFpbC5jb206cGFzc3dvcmQy");
-        // HttpEntity<Adventure> request = new HttpEntity<Adventure>(headers);
+        headers.set("Authorization", "Basic a2FybC5rYXJiaW5AaG90bWFpbC5jb206cGFzc3dvcmQy");
+        HttpEntity<Adventure> request = new HttpEntity<Adventure>(headers);
 
-        ResponseEntity<List> response = this.restTemplate.getForEntity(url+"/api/all", List.class);
+        // ResponseEntity<Object> response = this.restTemplate.getForEntity(url+"/api/all", Object.class);
 
-        System.out.println(response.getBody());
+        ResponseEntity<Object> response = this.restTemplate.exchange(url+"/api/all", HttpMethod.GET, request, Object.class);
 
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        HttpStatus responseStatus = response.getStatusCode();
+
+        assertEquals(HttpStatus.OK, responseStatus);
     }
 
     @Test //tests api/all
