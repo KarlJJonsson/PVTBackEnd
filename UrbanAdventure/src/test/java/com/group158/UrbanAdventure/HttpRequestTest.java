@@ -2,18 +2,24 @@ package com.group158.UrbanAdventure;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestOperations;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 
 /**
  * Class for testing endpoints. Integrationtest to ensure objects are passed correctly between REST and database.
@@ -30,16 +36,28 @@ public class HttpRequestTest {
     Testutilities testUtil = new Testutilities();
     Adventure adventure = testUtil.generateAdventure();
 
+    HttpHeaders headers = new HttpHeaders();
+
     @LocalServerPort
     private int port;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Bean
+    RestOperations rest(RestTemplateBuilder restTemplateBuilder) {
+    return restTemplateBuilder.basicAuthentication("karl.karbin@hotmail.com", "password2").build();
+}
+
     @Test //tests /api/create endpoint
     public void createAdventureTest(){
+        headers.setBasicAuth("karl.karbin@hotmail.com", "password2");
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        HttpEntity<Adventure> request = new HttpEntity<Adventure>(adventure, headers);
+
         //post adventure to database
-        ResponseEntity<String> response = this.restTemplate.postForEntity(url+"/api/create", adventure, String.class);
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url+"/api/create", request, String.class);
         
         //extracts adventure ID and statusCode
         String body = response.getBody(); //returns ID for posted adventure
@@ -143,6 +161,18 @@ public class HttpRequestTest {
         this.restTemplate.delete(url+"/api/remove/"+adventure.getId());
     }
 
+    @Test
+    public void getAllShouldReturnOk(){
+        // headers.set("Authorization", "Basic a2FybC5rYXJiaW5AaG90bWFpbC5jb206cGFzc3dvcmQy");
+        // HttpEntity<Adventure> request = new HttpEntity<Adventure>(headers);
+
+        ResponseEntity<List> response = this.restTemplate.getForEntity(url+"/api/all", List.class);
+
+        System.out.println(response.getBody());
+
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+    }
+
     @Test //tests api/all
     public void getAllShouldReturnAllAdventures(){
 
@@ -175,18 +205,5 @@ public class HttpRequestTest {
         this.restTemplate.delete(url+"/api/remove/"+adventure.getId());
         this.restTemplate.delete(url+"/api/remove/"+adventure2.getId());
         this.restTemplate.delete(url+"/api/remove/"+adventure3.getId());
-    }
-
-    @AfterAll
-    public void removeTestObjectFromDB(){
-        ResponseEntity<List> response = this.restTemplate.getForEntity(url+"/api/search/"+adventure.getAdventureTitle(),
-        List.class);
-
-        List<Map<String, String>> responseList = response.getBody();
-
-        for (Map<String, String> map : responseList) {
-            String id = map.get("id");
-            this.restTemplate.delete(url+"/api/remove/"+id);
-        }
     }
 }
