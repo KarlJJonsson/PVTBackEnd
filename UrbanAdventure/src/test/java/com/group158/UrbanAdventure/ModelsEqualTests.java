@@ -5,6 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.group158.UrbanAdventure.Models.Adventure;
+import com.group158.UrbanAdventure.Models.Choice;
+import com.group158.UrbanAdventure.Models.EventEnd;
+import com.group158.UrbanAdventure.Models.EventItemReceive;
+import com.group158.UrbanAdventure.Models.EventLast;
+import com.group158.UrbanAdventure.Models.EventMessage;
+import com.group158.UrbanAdventure.Models.EventMultipleChoice;
+import com.group158.UrbanAdventure.Models.EventPrompt;
+import com.group158.UrbanAdventure.Models.Item;
+import com.group158.UrbanAdventure.Models.Location;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
