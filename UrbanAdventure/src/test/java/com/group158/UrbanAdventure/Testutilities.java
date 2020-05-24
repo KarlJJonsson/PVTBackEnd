@@ -3,6 +3,8 @@ package com.group158.UrbanAdventure;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.group158.UrbanAdventure.Models.*;
+
 public class Testutilities {
     public Testutilities(){};
 
