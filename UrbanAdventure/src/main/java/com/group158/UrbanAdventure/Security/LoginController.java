@@ -1,7 +1,5 @@
 package com.group158.UrbanAdventure.Security;
 
-import java.util.NoSuchElementException;
-
 import com.group158.UrbanAdventure.User.User;
 import com.group158.UrbanAdventure.User.UserRepository;
 
@@ -39,7 +37,7 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<String> //fixa för att checka om user finns i databas vis inlogg
+    // @GetMapping("/login")
+    // public ResponseEntity<String> //fixa för att checka om user finns i databas vis inlogg
 
 }
