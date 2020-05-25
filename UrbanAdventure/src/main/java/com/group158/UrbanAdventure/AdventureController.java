@@ -1,6 +1,7 @@
 package com.group158.UrbanAdventure;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,7 +54,6 @@ public class AdventureController {
         }
     }
 
-    //Returna List istället för Adventure
     @GetMapping("/search/{adventureTitle}")
     public ResponseEntity<List<Adventure>> getAllByAdventureTitle(@PathVariable("adventureTitle") String adventureTitle){
         Optional<List<Adventure>> adventure = adventureRepository.findAllByAdventureTitle(adventureTitle);
@@ -62,7 +63,6 @@ public class AdventureController {
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        // return new ResponseEntity
     }
 
     @GetMapping("/get/{id}")
@@ -76,5 +76,18 @@ public class AdventureController {
         }
     }
 
-    //GetMapping för id, för att hitta unika äventyr
+    @PatchMapping("update/{id}/rating")
+    public ResponseEntity<String> updateAdventureRating(@PathVariable("id") String id, @RequestBody Map<String, Integer> rating){
+        Optional<Adventure> searchResult = adventureRepository.findById(id);
+        if(searchResult.isPresent()){
+            Adventure adventure = searchResult.get();
+            adventure.setThumbsDown(rating.get("thumbsDown"));
+            adventure.setThumbsUp(rating.get("thumbsUp"));
+            adventureRepository.save(adventure);
+            return new ResponseEntity<String>("Rating updated!", HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<String>("Adventure doesnt exist", HttpStatus.NOT_FOUND);
+        }
+    }
 }
