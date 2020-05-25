@@ -81,8 +81,8 @@ public class AdventureController {
         Optional<Adventure> searchResult = adventureRepository.findById(id);
         if(searchResult.isPresent()){
             Adventure adventure = searchResult.get();
-            adventure.setThumbsDown(rating.get("thumbsDown"));
-            adventure.setThumbsUp(rating.get("thumbsUp"));
+            adventure.setThumbsDown(rating.get("downvote"));
+            adventure.setThumbsUp(rating.get("upvote"));
             adventureRepository.save(adventure);
             return new ResponseEntity<String>("Rating updated!", HttpStatus.OK);
         }
