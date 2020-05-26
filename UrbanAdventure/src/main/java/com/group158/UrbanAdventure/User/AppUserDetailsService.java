@@ -28,13 +28,15 @@ public class AppUserDetailsService implements UserDetailsService{
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
         com.group158.UrbanAdventure.User.User user; //Vår egen User class
         Optional<com.group158.UrbanAdventure.User.User> response = userRepository.findByEmail(username);
+        System.out.println(username+" was found");
         if(response.isPresent()) {
+            System.out.println(username+" was authenticated");
             user = response.get();
             List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("USER")); 
             return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities); //spring security egen User class
         }
         else{
-            System.out.println(username);
+            System.out.println(username+" was not authenticated");
             throw new UsernameNotFoundException(String.format("User with name '%s' was not found", username));
         }
     }
