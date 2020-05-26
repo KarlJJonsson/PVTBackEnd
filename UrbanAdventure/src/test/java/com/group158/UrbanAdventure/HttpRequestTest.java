@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import com.group158.UrbanAdventure.User.User;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +29,7 @@ public class HttpRequestTest {
     //prerequisites
     Testutilities testUtil = new Testutilities();
     Adventure adventure = testUtil.generateAdventure();
+    User user = testUtil.generateUser();
 
     @LocalServerPort
     private int port;
@@ -175,16 +178,15 @@ public class HttpRequestTest {
         this.restTemplate.delete(url+"/api/remove/"+adventure3.getId());
     }
 
-    // @AfterAll
-    // public void removeTestObjectFromDB(){
-    //     ResponseEntity<List> response = this.restTemplate.getForEntity(url+"/api/search/"+adventure.getAdventureTitle(),
-    //     List.class);
+    @Test
+    public void creatingNewUser(){
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url+"/auth/create", user, String.class);
+        
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
 
-    //     List<Map<String, String>> responseList = response.getBody();
-
-    //     for (Map<String, String> map : responseList) {
-    //         String id = map.get("id");
-    //         this.restTemplate.delete(url+"/api/remove/"+id);
-    //     }
-    // }
+    @Test
+    public void createdUserShouldBeAuthenticated(){
+        
+    }
 }

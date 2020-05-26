@@ -3,6 +3,8 @@ package com.group158.UrbanAdventure;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.group158.UrbanAdventure.User.User;
+
 public class Testutilities {
     public Testutilities(){};
 
@@ -43,5 +45,11 @@ public class Testutilities {
         "promptMessage=Test promptMessage., correctAnswer=Test correctAnswer., wrongAnswerPath=1}, {type=message, index=2, path=0, "+
         "message=Test message.}], thumbsUp=0, thumbsDown=0}", id);
         return adventureJsonString;
+    }
+
+    public User generateUser(){
+        User user = new User("test@mail.com", "Test Person", "password");
+
+        return user;
     }
 }
