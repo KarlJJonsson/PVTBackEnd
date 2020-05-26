@@ -1,5 +1,7 @@
 package com.group158.UrbanAdventure.Security;
 
+import java.util.List;
+
 import com.group158.UrbanAdventure.User.User;
 import com.group158.UrbanAdventure.User.UserRepository;
 
@@ -39,5 +41,11 @@ public class LoginController {
 
     // @GetMapping("/login")
     // public ResponseEntity<String> //fixa för att checka om user finns i databas vis inlogg
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User> users = userRepository.findAll();
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+    }
 
 }
