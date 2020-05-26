@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Users")
@@ -15,6 +16,7 @@ public class User {
     @NotBlank
     @Email
     @Size(max = 50)
+    @Id
     private String email; //used as the Username
 
     @NotBlank

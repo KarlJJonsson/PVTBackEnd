@@ -6,6 +6,7 @@ import java.util.List;
 import com.group158.UrbanAdventure.User.User;
 
 public class Testutilities {
+    
     public Testutilities(){};
 
     public List<Adventure> generateAdventureList(){
@@ -49,6 +50,12 @@ public class Testutilities {
 
     public User generateUser(){
         User user = new User("test@mail.com", "Test Person", "password");
+
+        return user;
+    }
+
+    public User generateAnotherUser(){
+        User user = new User("test2@mail.com", "Test Person2", "password");
 
         return user;
     }
