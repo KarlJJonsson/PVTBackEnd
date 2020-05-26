@@ -39,9 +39,12 @@ public class LoginController {
         }
     }
 
-    // @GetMapping("/login")
-    // public ResponseEntity<String> //fixa för att checka om user finns i databas vis inlogg
+    @GetMapping("/login")
+    public ResponseEntity<String> checkLoginDetails(){
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
+    //ta bort denna efter testning
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> users = userRepository.findAll();
