@@ -29,7 +29,7 @@ public class LoginController {
 	}
 
     @PostMapping("/create")
-    public ResponseEntity<String> createAdventure(@RequestBody User user){
+    public ResponseEntity<String> createUser(@RequestBody User user){
         user.setPassword(passwordEncoder().encode(user.getPassword()));
         if (userRepository.findByEmail(user.getEmail()).isPresent()){
             return new ResponseEntity<String>("User with email '"+user.getEmail()+"' already exists!", HttpStatus.FORBIDDEN);
