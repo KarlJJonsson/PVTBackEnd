@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.group158.UrbanAdventure.User.User;
 
@@ -17,11 +21,17 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Class for testing endpoints. Integrationtest to ensure objects are passed correctly between REST and database.
  * Tests passes real objects between REST and database, mocking is not done here. Uses TestUtilities for resources.
+ * 
+ * Many tests relies on other endpoints than the primary one being tested. This could be bad, and these should be replaced
+ * with direct operations done against the repository instead. Work in progress.
  */
 
 @SpringBootTest (webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -38,6 +48,10 @@ public class HttpRequestTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
+    private RestTemplate apacheRestTemplate;
+
+    @Autowired
+    AdventureRepository adventureRepository;
 
 
     @Test //tests /api/create endpoint
@@ -179,6 +193,49 @@ public class HttpRequestTest {
         this.restTemplate.delete("/api/remove/"+adventure.getId());
         this.restTemplate.delete("/api/remove/"+adventure2.getId());
         this.restTemplate.delete("/api/remove/"+adventure3.getId());
+    }
+
+    @Test
+    public void adventureRatingShouldPatch(){
+
+        /**
+         * Måste använda en annan HttpClient för att testa patchning då springs "egna" inte stödjer detta.
+         * Därför används Apaches istället just här. Pga att testRestTemplate ska vara fault-tolerant
+         * tillåter det inte heller att ändra client, så ett RestTemplate måste användas direkt istället.
+         */
+
+        this.apacheRestTemplate = restTemplate.getRestTemplate();
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        this.apacheRestTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
+
+        Map<String, Integer> newRating = Map.of(
+            "upvote", 2,
+            "downvote", 5
+        );
+
+        HttpHeaders headers = new HttpHeaders();
+        MediaType mediaType = new MediaType("application", "merge-patch+json");
+        headers.setContentType(mediaType);
+
+        HttpEntity<Map<String, Integer>> entity= new HttpEntity<Map<String, Integer>>(newRating, headers);
+
+        ResponseEntity<String> createResponse = this.restTemplate.postForEntity("/api/create", adventure, String.class);
+        String adventureId = createResponse.getBody();
+
+
+        ResponseEntity<String> patchResponse = apacheRestTemplate.exchange("/api/update/"+adventureId+"/rating", HttpMethod.PATCH, entity, String.class);
+
+        Adventure adventure = adventureRepository.findById(adventureId).get();
+
+        Map<String, Integer> actualRating = Map.of(
+            "upvote", adventure.getThumbsUp(),
+            "downvote", adventure.getThumbsDown()
+        );
+                
+        assertEquals(HttpStatus.OK, patchResponse.getStatusCode());
+        assertEquals(newRating, actualRating);
+
+        adventureRepository.delete(adventure);
     }
 
     @Test
