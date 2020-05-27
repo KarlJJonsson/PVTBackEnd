@@ -127,12 +127,13 @@ public class HttpRequestIntegrationTest {
         this.restTemplate.postForEntity("/api/create", adventure, String.class);
 
         //get request to api/search/{adventureTitle}
-        ResponseEntity<List> response = this.restTemplate.getForEntity("/api/search/"+adventure.getAdventureTitle(),
+        ResponseEntity<?> response = this.restTemplate.getForEntity("/api/search/"+adventure.getAdventureTitle(),
             List.class);
+        
 
         //extracts Adventure in JSON die to responseType for request being List. Extracts list size and statusCode from response
-        String responseJsonAdventure = response.getBody().get(0).toString();
-        int responseListSize = response.getBody().size();
+        String responseJsonAdventure = ((List<?>) response.getBody()).get(0).toString();
+        int responseListSize = ((List<?>)response.getBody()).size();
         HttpStatus responseStatus = response.getStatusCode();
 
         // generates an Adventure in JSON due to responseType being List (Not possible to extract Adventure from Object)
@@ -164,11 +165,11 @@ public class HttpRequestIntegrationTest {
         this.restTemplate.postForEntity("/api/create", adventure3, String.class);
 
         //get request to /api/all
-        ResponseEntity<List> response = this.restTemplate.getForEntity("/api/all/",
+        ResponseEntity<?> response = this.restTemplate.getForEntity("/api/all/",
             List.class);
 
         // extracts size of list and statusCode
-        int responseListSize = response.getBody().size();
+        int responseListSize = ((List<?>) response.getBody()).size();
         HttpStatus responseStatus = response.getStatusCode();
 
         assertEquals(responseListSize>=3, true, "checks that received List is equal or larger than 3");
@@ -186,11 +187,7 @@ public class HttpRequestIntegrationTest {
         
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
-        user = testUtil.generateUser(); //återställer user då password blir encodat i create endpointen
-        String authStr = user.getEmail()+":"+user.getPassword();
-        String encodedAuthStr = Base64.getEncoder().encodeToString(authStr.getBytes());
-        String headerStr = "Basic "+encodedAuthStr;
-        HttpEntity request = new HttpEntity<>(headers);
+        HttpEntity<Object> request = new HttpEntity<>(headers);
 
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/deleteTestUser", HttpMethod.DELETE, request, String.class).getStatusCode();
 
@@ -213,7 +210,7 @@ public class HttpRequestIntegrationTest {
 
         headers.set("Authorization", headerStr);
 
-        HttpEntity request = new HttpEntity<>(headers);
+        HttpEntity<Object> request = new HttpEntity<>(headers);
 
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, Object.class).getStatusCode();
 
@@ -234,7 +231,7 @@ public class HttpRequestIntegrationTest {
 
         headers.set("Authorization", headerStr);
 
-        HttpEntity request = new HttpEntity<>(headers);
+        HttpEntity<Object> request = new HttpEntity<>(headers);
 
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, Object.class).getStatusCode();
 
