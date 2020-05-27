@@ -20,12 +20,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * Class for testing endpoints. Integrationtest to ensure objects are passed correctly between REST and database.
  * Tests passes real objects between REST and database, mocking is not done here. Uses TestUtilities for resources.
+ * 
+ * Many tests relies on other endpoints than the primary one being tested. This could be bad, and these should be replaced
+ * with direct operations done against the repository instead. Work in progress.
  */
 
 @SpringBootTest (webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -188,6 +190,12 @@ public class HttpRequestTest {
 
     @Test
     public void adventureRatingShouldPatch(){
+
+        /**
+         * Måste använda en annan HttpClient för att testa patchning då springs "egna" inte stödjer detta.
+         * Därför används Apaches istället just här. Pga att testRestTemplate ska vara fault-tolerant
+         * tillåter det inte heller att ändra client, så ett RestTemplate måste användas direkt istället.
+         */
 
         this.apacheRestTemplate = restTemplate.getRestTemplate();
         HttpClient httpClient = HttpClientBuilder.create().build();
