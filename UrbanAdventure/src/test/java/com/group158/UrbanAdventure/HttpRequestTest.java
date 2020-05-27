@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.group158.UrbanAdventure.User.User;
 
@@ -17,11 +21,17 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Class for testing endpoints. Integrationtest to ensure objects are passed correctly between REST and database.
  * Tests passes real objects between REST and database, mocking is not done here. Uses TestUtilities for resources.
+ * 
+ * Many tests relies on other endpoints than the primary one being tested. This could be bad, and these should be replaced
+ * with direct operations done against the repository instead. Work in progress.
  */
 
 @SpringBootTest (webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -38,9 +48,10 @@ public class HttpRequestTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
+    private RestTemplate apacheRestTemplate;
 
-    // String url = "https://group8-15.pvt.dsv.su.se"; //for deployment
-    String url = "http://192.168.1.99:8080"; //for local testing purposes
+    @Autowired
+    AdventureRepository adventureRepository;
 
 
     @Test //tests /api/create endpoint
@@ -185,16 +196,55 @@ public class HttpRequestTest {
     }
 
     @Test
+    public void adventureRatingShouldPatch(){
+
+        /**
+         * Måste använda en annan HttpClient för att testa patchning då springs "egna" inte stödjer detta.
+         * Därför används Apaches istället just här. Pga att testRestTemplate ska vara fault-tolerant
+         * tillåter det inte heller att ändra client, så ett RestTemplate måste användas direkt istället.
+         */
+
+        this.apacheRestTemplate = restTemplate.getRestTemplate();
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        this.apacheRestTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
+
+        Map<String, Integer> newRating = Map.of(
+            "upvote", 2,
+            "downvote", 5
+        );
+
+        HttpHeaders headers = new HttpHeaders();
+        MediaType mediaType = new MediaType("application", "merge-patch+json");
+        headers.setContentType(mediaType);
+
+        HttpEntity<Map<String, Integer>> entity= new HttpEntity<Map<String, Integer>>(newRating, headers);
+
+        ResponseEntity<String> createResponse = this.restTemplate.postForEntity("/api/create", adventure, String.class);
+        String adventureId = createResponse.getBody();
+
+
+        ResponseEntity<String> patchResponse = apacheRestTemplate.exchange("/api/update/"+adventureId+"/rating", HttpMethod.PATCH, entity, String.class);
+
+        Adventure adventure = adventureRepository.findById(adventureId).get();
+
+        Map<String, Integer> actualRating = Map.of(
+            "upvote", adventure.getThumbsUp(),
+            "downvote", adventure.getThumbsDown()
+        );
+                
+        assertEquals(HttpStatus.OK, patchResponse.getStatusCode());
+        assertEquals(newRating, actualRating);
+
+        adventureRepository.delete(adventure);
+    }
+
+    @Test
     public void creatingNewUserAndDeletingIt(){
         ResponseEntity<String> response = this.restTemplate.postForEntity("/auth/create", user, String.class);
         
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
-        user = testUtil.generateUser(); //återställer user då password blir encodat i create endpointen
-        String authStr = user.getEmail()+":"+user.getPassword();
-        String encodedAuthStr = Base64.getEncoder().encodeToString(authStr.getBytes());
-        String headerStr = "Basic "+encodedAuthStr;
-        HttpEntity request = new HttpEntity<>(headers);
+        HttpEntity<Object> request = new HttpEntity<>(headers);
 
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/deleteTestUser", HttpMethod.DELETE, request, String.class).getStatusCode();
 
@@ -217,7 +267,7 @@ public class HttpRequestTest {
 
         headers.set("Authorization", headerStr);
 
-        HttpEntity request = new HttpEntity<>(headers);
+        HttpEntity<Object> request = new HttpEntity<>(headers);
 
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, Object.class).getStatusCode();
 
@@ -238,7 +288,7 @@ public class HttpRequestTest {
 
         headers.set("Authorization", headerStr);
 
-        HttpEntity request = new HttpEntity<>(headers);
+        HttpEntity<Object> request = new HttpEntity<>(headers);
 
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, Object.class).getStatusCode();
 
