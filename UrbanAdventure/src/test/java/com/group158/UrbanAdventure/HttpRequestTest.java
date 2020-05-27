@@ -39,9 +39,6 @@ public class HttpRequestTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    // String url = "https://group8-15.pvt.dsv.su.se"; //for deployment
-    String url = "http://192.168.1.99:8080"; //for local testing purposes
-
 
     @Test //tests /api/create endpoint
     public void createAdventureTest(){
@@ -190,11 +187,7 @@ public class HttpRequestTest {
         
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
-        user = testUtil.generateUser(); //återställer user då password blir encodat i create endpointen
-        String authStr = user.getEmail()+":"+user.getPassword();
-        String encodedAuthStr = Base64.getEncoder().encodeToString(authStr.getBytes());
-        String headerStr = "Basic "+encodedAuthStr;
-        HttpEntity request = new HttpEntity<>(headers);
+        HttpEntity<Object> request = new HttpEntity<>(headers);
 
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/deleteTestUser", HttpMethod.DELETE, request, String.class).getStatusCode();
 
@@ -217,7 +210,7 @@ public class HttpRequestTest {
 
         headers.set("Authorization", headerStr);
 
-        HttpEntity request = new HttpEntity<>(headers);
+        HttpEntity<Object> request = new HttpEntity<>(headers);
 
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, Object.class).getStatusCode();
 
@@ -238,7 +231,7 @@ public class HttpRequestTest {
 
         headers.set("Authorization", headerStr);
 
-        HttpEntity request = new HttpEntity<>(headers);
+        HttpEntity<Object> request = new HttpEntity<>(headers);
 
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, Object.class).getStatusCode();
 

@@ -56,15 +56,6 @@ public class ModelsEqualTests {
     }
 
     @Test
-    public void testEqualsEventLast(){
-        EventLast msg7 = new EventLast(1, 2, "asd", 3);
-        EventLast msg8 = new EventLast(1, 2, "asd", 3);
-
-        assertEquals(msg7, msg8);
-        assertEquals(msg7 == msg8, false);
-    }
-
-    @Test
     public void testEqualsChoice(){
         Choice choice1 = new Choice("asdasd", 1);
         Choice choice2 = new Choice("asdasd", 1);
