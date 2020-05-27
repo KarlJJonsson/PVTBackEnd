@@ -2,11 +2,15 @@ package com.group158.UrbanAdventure;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+
+import com.group158.UrbanAdventure.User.User;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,6 +40,8 @@ public class HttpRequestTest {
     //prerequisites
     Testutilities testUtil = new Testutilities();
     Adventure adventure = testUtil.generateAdventure();
+    User user = testUtil.generateUser();
+    HttpHeaders headers = new HttpHeaders();
 
     @LocalServerPort
     private int port;
@@ -46,6 +52,10 @@ public class HttpRequestTest {
 
     @Autowired
     AdventureRepository adventureRepository;
+
+    // String url = "https://group8-15.pvt.dsv.su.se"; //for deployment
+    String url = "http://192.168.1.99:8080"; //for local testing purposes
+
 
     @Test //tests /api/create endpoint
     public void createAdventureTest(){
@@ -230,4 +240,66 @@ public class HttpRequestTest {
 
         adventureRepository.delete(adventure);
     }
+
+    @Test
+    public void creatingNewUserAndDeletingIt(){
+        ResponseEntity<String> response = this.restTemplate.postForEntity("/auth/create", user, String.class);
+        
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+
+        user = testUtil.generateUser(); //återställer user då password blir encodat i create endpointen
+        String authStr = user.getEmail()+":"+user.getPassword();
+        String encodedAuthStr = Base64.getEncoder().encodeToString(authStr.getBytes());
+        String headerStr = "Basic "+encodedAuthStr;
+        HttpEntity request = new HttpEntity<>(headers);
+
+        HttpStatus responseStatus = this.restTemplate.exchange("/auth/deleteTestUser", HttpMethod.DELETE, request, String.class).getStatusCode();
+
+        assertEquals(HttpStatus.OK, responseStatus);
+    }
+
+    @Test
+    public void createdUserShouldBeAuthenticated(){
+
+        user = testUtil.generateUser(); //återställer user då password blir encodat i create endpointen
+
+        ResponseEntity<String> response = this.restTemplate.postForEntity("/auth/create", user, String.class);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+
+        user = testUtil.generateUser(); //återställer user då password blir encodat i create endpointen
+
+        String authStr = user.getEmail()+":"+user.getPassword();
+        String encodedAuthStr = Base64.getEncoder().encodeToString(authStr.getBytes());
+        String headerStr = "Basic "+encodedAuthStr;
+
+        headers.set("Authorization", headerStr);
+
+        HttpEntity request = new HttpEntity<>(headers);
+
+        HttpStatus responseStatus = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, Object.class).getStatusCode();
+
+        assertEquals(HttpStatus.OK, responseStatus);
+
+        HttpStatus responseStatus2 = this.restTemplate.exchange("/auth/deleteTestUser", HttpMethod.DELETE, request, String.class).getStatusCode();
+
+        assertEquals(HttpStatus.OK, responseStatus2);
+    }
+
+    @Test
+    public void NonExistingUserShouldNotBeAuthenticated(){
+
+        user = testUtil.generateAnotherUser(); //genererar en användare som inte finns i databasen
+        String authStr = user.getEmail()+":"+user.getPassword();
+        String encodedAuthStr = Base64.getEncoder().encodeToString(authStr.getBytes());
+        String headerStr = "Basic "+encodedAuthStr;
+
+        headers.set("Authorization", headerStr);
+
+        HttpEntity request = new HttpEntity<>(headers);
+
+        HttpStatus responseStatus = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, Object.class).getStatusCode();
+
+        assertEquals(HttpStatus.UNAUTHORIZED, responseStatus);
+    }
+
 }
