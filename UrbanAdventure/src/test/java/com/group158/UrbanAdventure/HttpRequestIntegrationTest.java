@@ -25,7 +25,7 @@ import org.springframework.http.ResponseEntity;
  */
 
 @SpringBootTest (webEnvironment = WebEnvironment.RANDOM_PORT)
-public class HttpRequestTest {
+public class HttpRequestIntegrationTest {
 
     //prerequisites
     Testutilities testUtil = new Testutilities();
@@ -38,10 +38,6 @@ public class HttpRequestTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
-
-    // String url = "https://group8-15.pvt.dsv.su.se"; //for deployment
-    String url = "http://192.168.1.99:8080"; //for local testing purposes
-
 
     @Test //tests /api/create endpoint
     public void createAdventureTest(){
