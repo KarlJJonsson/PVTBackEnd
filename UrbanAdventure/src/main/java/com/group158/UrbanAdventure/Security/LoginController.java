@@ -8,6 +8,8 @@ import com.group158.UrbanAdventure.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,8 +43,10 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<String> checkLoginDetails(){
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<User> login(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername()).get();
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
     //ta bort denna efter testning

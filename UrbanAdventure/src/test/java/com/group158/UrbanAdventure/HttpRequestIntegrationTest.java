@@ -10,6 +10,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.group158.UrbanAdventure.User.User;
+import com.group158.UrbanAdventure.User.UserRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class HttpRequestIntegrationTest {
 
     @Autowired
     AdventureRepository adventureRepository;
+    UserRepository userRepository;
 
     @Test //tests /api/create endpoint
     public void createAdventureTest(){
@@ -269,13 +271,15 @@ public class HttpRequestIntegrationTest {
 
         HttpEntity<Object> request = new HttpEntity<>(headers);
 
-        HttpStatus responseStatus = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, Object.class).getStatusCode();
+        ResponseEntity<User> loginResponse = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, User.class);
+        HttpStatus loginResponseStatus = loginResponse.getStatusCode();
 
-        assertEquals(HttpStatus.OK, responseStatus);
+        assertEquals(HttpStatus.OK, loginResponseStatus);
+        assertEquals(user, loginResponse.getBody());
 
-        HttpStatus responseStatus2 = this.restTemplate.exchange("/auth/deleteTestUser", HttpMethod.DELETE, request, String.class).getStatusCode();
+        HttpStatus deleteResponse = this.restTemplate.exchange("/auth/deleteTestUser", HttpMethod.DELETE, request, String.class).getStatusCode();
 
-        assertEquals(HttpStatus.OK, responseStatus2);
+        assertEquals(HttpStatus.OK, deleteResponse);
     }
 
     @Test
@@ -293,6 +297,54 @@ public class HttpRequestIntegrationTest {
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, Object.class).getStatusCode();
 
         assertEquals(HttpStatus.UNAUTHORIZED, responseStatus);
+    }
+
+    @Test
+    public void userVotesShouldPatch(){
+
+        //put new user in database
+        User user = testUtil.generateUser();
+        this.restTemplate.postForEntity("/auth/create", user, String.class);
+
+        //create apache HttpClient for RestTemplate, since Spring boot dont support patch.
+        this.apacheRestTemplate = restTemplate.getRestTemplate();
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        this.apacheRestTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
+
+        //creatng headers for authentication
+        HttpHeaders headers = new HttpHeaders();
+        MediaType mediaType = new MediaType("application", "merge-patch+json");
+        headers.setContentType(mediaType);
+
+        String authStr = user.getEmail()+":"+user.getPassword();
+        String encodedAuthStr = Base64.getEncoder().encodeToString(authStr.getBytes());
+        String headerStr = "Basic "+encodedAuthStr;
+
+        headers.set("Authorization", headerStr);
+
+        //create new map to user for the patch
+        Map<String, Integer> newVotes = Map.of(
+            "AdventureId", 1
+        );
+
+        //create httpEntity with authorized headers and the newVotes map
+        HttpEntity<Map<String, Integer>> entity= new HttpEntity<Map<String, Integer>>(newVotes, headers);
+
+        //perform patchRequest
+        ResponseEntity<User> patchResponse = apacheRestTemplate.exchange("/user/update/rating", HttpMethod.PATCH, entity, User.class);
+
+        //get user from response
+        User userFromResponse = patchResponse.getBody();
+
+        //set actual votes from user from response
+        Map<String, Integer> actualVotes = userFromResponse.getVotes();
+
+        //delete posted user from DB, in order to not clutter DB from testing
+        this.restTemplate.exchange("/auth/deleteTestUser", HttpMethod.DELETE, entity, String.class);
+
+                
+        assertEquals(HttpStatus.OK, patchResponse.getStatusCode());
+        assertEquals(newVotes, actualVotes);
     }
 
 }

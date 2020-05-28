@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.
 			authorizeRequests().antMatchers("/auth/login").authenticated().antMatchers("auth/deleteTestUser").authenticated().
+			antMatchers("/user/update/rating").authenticated().
 			and().httpBasic().
 			and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
 			and().csrf().disable();
