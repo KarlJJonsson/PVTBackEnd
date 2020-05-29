@@ -79,7 +79,7 @@ public class LocationTest {
 
         Location location = new Location(radius, 1, 1);
 
-        assertEquals(radius, location.getLongitude(), "getRadius returns faulty radius");
+        assertEquals(radius, location.getRadius(), "getRadius returns faulty radius");
 
         int newRadius = 7;
 
