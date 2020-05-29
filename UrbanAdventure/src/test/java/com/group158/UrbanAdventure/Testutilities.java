@@ -59,4 +59,22 @@ public class Testutilities {
 
         return user;
     }
+
+    public EventStreetLight generateStreetLight(){
+        EventStreetLight event = new EventStreetLight(2, 4, generateLocation(), 5);
+
+        return event;
+    }
+
+    public Location generateLocation(){
+        Location location = new Location(5, 50.0, 40.0);
+
+        return location;
+    }
+
+    public Location generateAnotherLocation(){
+        Location location = new Location(3, 35.0, 13.0);
+
+        return location;
+    }
 }

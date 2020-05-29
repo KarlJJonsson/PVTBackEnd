@@ -16,7 +16,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
     @Type(value = EventEnd.class, name = "end"),
     @Type(value = EventItemReceive.class, name = "itemReceive"),
     @Type(value = EventLocation.class, name = "location"),
-    @Type(value = EventMedia.class, name = "media")
+    @Type(value = EventMedia.class, name = "media"),
+    @Type(value = EventStreetLight.class, name = "streetLight")
 })
 
 public abstract class Event {

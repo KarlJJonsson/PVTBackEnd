@@ -1,4 +1,4 @@
-package com.group158.UrbanAdventure;
+package com.group158.UrbanAdventure.ModelsUnitTest.UserTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -6,12 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.group158.UrbanAdventure.Testutilities;
 import com.group158.UrbanAdventure.User.User;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 public class UserTest {
 
     Testutilities testUtil = new Testutilities();
@@ -45,6 +44,4 @@ public class UserTest {
 
         assertNotEquals(user1, user2);
     }
-
-    
 }
