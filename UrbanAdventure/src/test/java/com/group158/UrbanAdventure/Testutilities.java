@@ -77,4 +77,71 @@ public class Testutilities {
 
         return location;
     }
+
+    public EventEnd generateEnd(){
+        EventEnd event = new EventEnd(1, 2, "Test Message");
+
+        return event;
+    }
+
+    public EventItemReceive generateItemReceive(){
+        EventItemReceive event = new EventItemReceive(1, 2, "Test Message", "Test Item");
+
+        return event;
+    }
+
+    public EventLocation generateEventLocation(){
+        EventLocation event = new EventLocation(1, 2, generateLocation(), false, false, false, false);
+
+        return event;
+    }
+
+    public EventMedia generateMedia(){
+        EventMedia event = new EventMedia(1, 2, "ImageUrl", "SoundUrl", "VideoUrl");
+
+        return event;
+    }
+
+    public EventMessage generateMessage(){
+        EventMessage event = new EventMessage(1, 2, "Test Message");
+
+        return event;
+    }
+
+    public EventPrompt generatePrompt(){
+        EventPrompt event = new EventPrompt(1, 2, "Test Message", "Test Prompt Message", "Correct Answer", 3);
+
+        return event;
+    }
+
+    public Choice generateChoice(){
+        Choice choice = new Choice("Test text", 1);
+
+        return choice;
+    }
+    
+    public Choice generateAnotherChoice(){
+        Choice choice = new Choice("Another Test Text", 2);
+
+        return choice;
+    }
+
+    public EventMultipleChoice generateEventMultipleChoice(){
+        List<Choice> choices = List.of(generateChoice(), generateAnotherChoice());
+        EventMultipleChoice event = new EventMultipleChoice(1, 2, choices, "Test Message");
+
+        return event;
+    }
+
+    public List<Choice> generateListOfChoices(){
+        List<Choice> choices = List.of(generateChoice(), generateAnotherChoice(), generateChoice(), generateAnotherChoice());
+
+        return choices;
+    }
+
+    public List<Choice> generateEmptyListOfChoices(){
+        List<Choice> choices = List.of();
+
+        return choices;
+    }
 }

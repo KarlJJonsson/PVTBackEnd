@@ -91,24 +91,26 @@ public class Adventure {
         this.thumbsDown = thumbsDown;
     }
 
+    public boolean isIdentical(Adventure adventure){
+        return (this.id.equals(adventure.id)
+        && this.adventureTitle.equals(adventure.adventureTitle)
+        && this.length == adventure.length
+        && this.genre.equals(adventure.genre)
+        && this.descriptionText.equals(adventure.descriptionText)
+        && this.author.equals(adventure.author)
+        && this.events.equals(adventure.events)
+        && this.thumbsUp == adventure.thumbsUp
+        && this.thumbsDown == adventure.thumbsDown);
+    }
+
     @Override
     public boolean equals(Object object){
         if (object instanceof Adventure){
             Adventure adventure = (Adventure) object;
-            if(this.id.equals(adventure.id)
-                && this.adventureTitle.equals(adventure.adventureTitle)
-                && this.length == adventure.length
-                && this.genre.equals(adventure.genre)
-                && this.descriptionText.equals(adventure.descriptionText)
-                && this.author.equals(adventure.author)
-                && this.events.equals(adventure.events)
-                && this.thumbsUp == adventure.thumbsUp
-                && this.thumbsDown == adventure.thumbsDown
-            ){
-                return true;
-            }
+            return this.id.equals(adventure.id);
         }
-        return false;
-
+        else{
+            return false;
+        }
     }
 }

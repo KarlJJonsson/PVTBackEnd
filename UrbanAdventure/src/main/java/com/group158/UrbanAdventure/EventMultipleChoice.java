@@ -29,16 +29,6 @@ public class EventMultipleChoice extends Event{
         this.message = message;
     }
 
-    public EventMultipleChoice choices(List<Choice> choices) {
-        this.choices = choices;
-        return this;
-    }
-
-    public EventMultipleChoice message(String message) {
-        this.message = message;
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this)

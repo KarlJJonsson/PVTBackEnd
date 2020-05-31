@@ -1,5 +1,6 @@
 package com.group158.UrbanAdventure;
 
+@Deprecated
 public class Item {
     String name;
 

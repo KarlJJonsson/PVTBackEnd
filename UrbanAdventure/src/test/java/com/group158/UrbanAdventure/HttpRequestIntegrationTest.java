@@ -64,8 +64,8 @@ public class HttpRequestIntegrationTest {
         String body = response.getBody(); //returns ID for posted adventure
         HttpStatus status = response.getStatusCode();
 
-        assertEquals(HttpStatus.CREATED, status, "checks statuscode for creation");
-        assertEquals(body, adventure.getId(), "checks returned id is same as adventure id");
+        assertEquals(HttpStatus.CREATED, status, "/api/create doesn't return correct statuscode");
+        assertEquals(body, adventure.getId(), "local and posted id is different for same adventure");
 
         //deletes adventure when test is done
         this.restTemplate.delete("/api/remove/"+adventure.getId());
@@ -83,7 +83,7 @@ public class HttpRequestIntegrationTest {
         //extract adventure from getResponse
         Adventure adventureFromDatabase = getResponse.getBody();
 
-        assertEquals(adventure, adventureFromDatabase, "checks that adventure exists in database and is correct");
+        assertEquals(true, adventureFromDatabase.isIdentical(adventure), "local adventure is different from posted on in DB");
 
         //deletes adventure when test is done
         this.restTemplate.delete("/api/remove/"+adventure.getId());
@@ -108,13 +108,13 @@ public class HttpRequestIntegrationTest {
         ResponseEntity<Adventure> response2 = this.restTemplate.getForEntity("/api/get/"+adventure.getId(),
             Adventure.class);
 
-        //extracts adventure and code from delete request, these should be null and 404
+        //extracts adventure and code from last get request, these should be null and 404
         Adventure response2Adventure = response2.getBody();
         HttpStatus response2Status = response2.getStatusCode();
 
-        assertEquals(response1Adventure, adventure, "checks if adventure has been posted correctly");
-        assertEquals(response2Adventure, null, "checks if adventure has been deleted correctly");
-        assertEquals(HttpStatus.NOT_FOUND, response2Status, "checks that httpstatus correctly responds with 404");
+        assertEquals(true, adventure.isIdentical(response1Adventure), "posted and local adventure is not identical");
+        assertEquals(response2Adventure, null, "adventure has not been correctly deleted");
+        assertEquals(HttpStatus.NOT_FOUND, response2Status, "adventure has not been correctly deleted - or endpoints returns faulty HttpStatusCode");
     }
 
     @Test //tests /api/get/{id} 
@@ -130,8 +130,8 @@ public class HttpRequestIntegrationTest {
         Adventure responseAdventure = response.getBody();
         HttpStatus responseStatus = response.getStatusCode();
 
-        assertEquals(adventure, responseAdventure, "checks that endpoint responds with correct adventure");
-        assertEquals(HttpStatus.OK, responseStatus, "checks that endpoint responds with correct Httpstatus");
+        assertEquals(true, responseAdventure.isIdentical(adventure), "endpoint doesn't return correct adventure");
+        assertEquals(HttpStatus.OK, responseStatus, "endpoints doesn't respond with correct HttpStatusCode");
 
         //deletes adventure when test is done
         this.restTemplate.delete("/api/remove/"+adventure.getId());
@@ -155,9 +155,9 @@ public class HttpRequestIntegrationTest {
         // generates an Adventure in JSON due to responseType being List (Not possible to extract Adventure from Object)
         String jsonAdventure = testUtil.generateAdventureJsonStringWithId(adventure.getId());
 
-        assertEquals(jsonAdventure, responseJsonAdventure, "checks that received jsonAdventure is correct");
-        assertEquals(responseListSize>0, true, "checks that received List is larger than 0");
-        assertEquals(responseStatus, HttpStatus.OK, "checks that received status is correct");
+        assertEquals(jsonAdventure, responseJsonAdventure, "local and received jsonAdventure is not identical");
+        assertEquals(responseListSize>0, true, "received list is empty - it shouldn't be");
+        assertEquals(responseStatus, HttpStatus.OK, "received HttpStatusCode is not correct");
 
         //deletes adventure when test is done
         this.restTemplate.delete("/api/remove/"+adventure.getId());
@@ -188,8 +188,8 @@ public class HttpRequestIntegrationTest {
         int responseListSize = ((List<?>) response.getBody()).size();
         HttpStatus responseStatus = response.getStatusCode();
 
-        assertEquals(responseListSize>=3, true, "checks that received List is equal or larger than 3");
-        assertEquals(responseStatus, HttpStatus.OK, "checks that received status is correct");
+        assertEquals(responseListSize>=3, true, "received list dos not contain all adventures");
+        assertEquals(responseStatus, HttpStatus.OK, "received HttpStatusCode i not correct");
 
         //deletes adventures when test is done
         this.restTemplate.delete("/api/remove/"+adventure.getId());
@@ -234,8 +234,8 @@ public class HttpRequestIntegrationTest {
             "downvote", adventure.getThumbsDown()
         );
                 
-        assertEquals(HttpStatus.OK, patchResponse.getStatusCode());
-        assertEquals(newRating, actualRating);
+        assertEquals(HttpStatus.OK, patchResponse.getStatusCode(), "received HttpStatusCode is not correct");
+        assertEquals(newRating, actualRating, "rating has not patched correctly");
 
         adventureRepository.delete(adventure);
     }
@@ -244,13 +244,13 @@ public class HttpRequestIntegrationTest {
     public void creatingNewUserAndDeletingIt(){
         ResponseEntity<String> response = this.restTemplate.postForEntity("/auth/create", user, String.class);
         
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode(), "new user was not successfully created");
 
         HttpEntity<Object> request = new HttpEntity<>(headers);
 
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/deleteTestUser", HttpMethod.DELETE, request, String.class).getStatusCode();
 
-        assertEquals(HttpStatus.OK, responseStatus);
+        assertEquals(HttpStatus.OK, responseStatus, "deleting testUser was not successfully done");
     }
 
     @Test
@@ -259,7 +259,7 @@ public class HttpRequestIntegrationTest {
         user = testUtil.generateUser(); //återställer user då password blir encodat i create endpointen
 
         ResponseEntity<String> response = this.restTemplate.postForEntity("/auth/create", user, String.class);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode(), "new user was not successfully created");
 
         user = testUtil.generateUser(); //återställer user då password blir encodat i create endpointen
 
@@ -274,12 +274,12 @@ public class HttpRequestIntegrationTest {
         ResponseEntity<User> loginResponse = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, User.class);
         HttpStatus loginResponseStatus = loginResponse.getStatusCode();
 
-        assertEquals(HttpStatus.OK, loginResponseStatus);
-        assertEquals(user, loginResponse.getBody());
+        assertEquals(HttpStatus.OK, loginResponseStatus, "login was not accepted");
+        assertEquals(user, loginResponse.getBody(), "correct user was not returned after login");
 
         HttpStatus deleteResponse = this.restTemplate.exchange("/auth/deleteTestUser", HttpMethod.DELETE, request, String.class).getStatusCode();
 
-        assertEquals(HttpStatus.OK, deleteResponse);
+        assertEquals(HttpStatus.OK, deleteResponse, "deleting testUser was not successfully done");
     }
 
     @Test
@@ -296,7 +296,7 @@ public class HttpRequestIntegrationTest {
 
         HttpStatus responseStatus = this.restTemplate.exchange("/auth/login", HttpMethod.GET, request, Object.class).getStatusCode();
 
-        assertEquals(HttpStatus.UNAUTHORIZED, responseStatus);
+        assertEquals(HttpStatus.UNAUTHORIZED, responseStatus, "Unauthorized user was not deemed unauthorized");
     }
 
     @Test
@@ -343,8 +343,8 @@ public class HttpRequestIntegrationTest {
         this.restTemplate.exchange("/auth/deleteTestUser", HttpMethod.DELETE, entity, String.class);
 
                 
-        assertEquals(HttpStatus.OK, patchResponse.getStatusCode());
-        assertEquals(newVotes, actualVotes);
+        assertEquals(HttpStatus.OK, patchResponse.getStatusCode(), "patchRequest was not done successfully");
+        assertEquals(newVotes, actualVotes, "endpoint did not patch resource");
     }
 
 }
