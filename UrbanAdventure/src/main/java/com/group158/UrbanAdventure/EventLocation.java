@@ -43,9 +43,9 @@ public class EventLocation extends Event{
         super(index, path);
         this.location = location;
         this.visible = visible;
-        triggered = false;
-        currentlyActive = false;
-        despawn = false;
+        this.triggered = triggered;
+        this.currentlyActive = currentlyActive;
+        this.despawn = despawn;
     }
 
     public Location getLocation() {
@@ -64,7 +64,14 @@ public class EventLocation extends Event{
             return false;
         }
         EventLocation eventLocation = (EventLocation) o;
-        return (this.location.equals(eventLocation.location) && this.visible == eventLocation.visible);
+        return ((this.location.equals(eventLocation.location) 
+        && this.visible == eventLocation.visible)
+        && this.getIndex() == eventLocation.getIndex()
+        && this.getPath() == eventLocation.getPath()
+        && this.triggered == eventLocation.getTriggered()
+        && this.despawn == eventLocation.despawn
+        && this.currentlyActive == eventLocation.currentlyActive
+        );
     }
 
     

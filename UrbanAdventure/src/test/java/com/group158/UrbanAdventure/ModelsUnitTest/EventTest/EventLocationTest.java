@@ -35,7 +35,7 @@ public class EventLocationTest {
         assertNotEquals(event1, event2, "Different index returns equals = true");
 
         event2 = testUtil.generateEventLocation();
-        event2.setPath(event2.getPath());
+        event2.setPath(event2.getPath()+1);
         assertNotEquals(event1, event2, "Different path returns equals = true");
 
         event2 = testUtil.generateEventLocation();

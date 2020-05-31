@@ -46,6 +46,11 @@ public class EventMedia extends Event {
             return false;
         }
         EventMedia eventMedia = (EventMedia) o;
-        return Objects.equals(image, eventMedia.image) && Objects.equals(sound, eventMedia.sound) && Objects.equals(video, eventMedia.video);
+        return (Objects.equals(image, eventMedia.image) 
+            && Objects.equals(sound, eventMedia.sound) 
+            && Objects.equals(video, eventMedia.video)
+            && this.getIndex() == eventMedia.getIndex()
+            && this.getPath() == eventMedia.getPath()
+        );
     }
 }

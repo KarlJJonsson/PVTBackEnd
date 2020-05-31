@@ -27,7 +27,10 @@ public class EventStreetLight extends Event {
             return false;
         }
         EventStreetLight eventStreetLight = (EventStreetLight) o;
-        return Objects.equals(streetLights, eventStreetLight.getStreetLights());
+        return (Objects.equals(streetLights, eventStreetLight.getStreetLights())
+            && this.getIndex() == eventStreetLight.getIndex()
+            && this.getPath() == eventStreetLight.getPath()
+        );
     }
 
     @Override
