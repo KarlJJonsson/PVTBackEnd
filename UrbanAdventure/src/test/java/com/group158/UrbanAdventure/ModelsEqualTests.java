@@ -11,8 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 /**
  * Class for testing equals methods for all of the models. Unnecessary in one way, but was created because of
  * equal method problems in deep hierarchy.
+ * 
+ * Tests deprecated in favor for new unit tests for each model. New tests has more indepth testcases for equals and are considered more trusted than these.
+ * This class should not be trusted for a functioning build.
  */
 
+ @Deprecated
 @SpringBootTest
 public class ModelsEqualTests {
 
@@ -95,14 +99,4 @@ public class ModelsEqualTests {
         assertEquals(location1, location2);
         assertEquals(location1 == location2, false);
     }
-
-    @Test
-    public void testEqualsItem(){
-        Item item1 = new Item("name");
-        Item item2 = new Item("name");
-
-        assertEquals(item1, item2);
-        assertEquals(item1 == item2, false);
-    }
-    
 }
