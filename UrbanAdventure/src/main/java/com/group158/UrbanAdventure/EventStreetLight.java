@@ -1,31 +1,22 @@
 package com.group158.UrbanAdventure;
 
+import java.util.List;
 import java.util.Objects;
 
 public class EventStreetLight extends Event {
-    private Location location;
-    private int delay;
+    private List<StreetLight> streetLights;
 
-    public EventStreetLight(int index, int path, Location location, int delay) {
+    public EventStreetLight(int index, int path, List<StreetLight> streetLights) {
         super(index, path);
-        this.location = location;
-        this.delay = delay;
+        this.streetLights = streetLights;
     }
 
-    public Location getLocation() {
-        return this.location;
+    public List<StreetLight> getStreetLights() {
+        return this.streetLights;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public int getDelay() {
-        return this.delay;
-    }
-
-    public void setDelay(int delay) {
-        this.delay = delay;
+    public void setStreetLights(List<StreetLight> streetLights) {
+        this.streetLights = streetLights;
     }
 
     @Override
@@ -36,12 +27,11 @@ public class EventStreetLight extends Event {
             return false;
         }
         EventStreetLight eventStreetLight = (EventStreetLight) o;
-        return Objects.equals(location, eventStreetLight.location) 
-        && delay == eventStreetLight.delay
-        && this.getIndex() == eventStreetLight.getIndex()
-        && this.getPath() == eventStreetLight.getPath();
+        return Objects.equals(streetLights, eventStreetLight.getStreetLights());
     }
 
-
-    
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(streetLights);
+    }
 }

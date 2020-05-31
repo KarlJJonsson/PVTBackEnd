@@ -4,9 +4,6 @@ public class Choice {
     private String text;
     private int path;
 
-    public Choice() {
-    }
-
     public Choice(String text, int path) {
         this.text = text;
         this.path = path;
@@ -26,16 +23,6 @@ public class Choice {
 
     public void setPath(int path) {
         this.path = path;
-    }
-
-    public Choice text(String text) {
-        this.text = text;
-        return this;
-    }
-
-    public Choice path(int path) {
-        this.path = path;
-        return this;
     }
 
     public boolean equals(Object obj){

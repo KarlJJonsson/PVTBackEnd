@@ -1,11 +1,11 @@
 package com.group158.UrbanAdventure;
 
 public class EventLocation extends Event{
-    Location location;
-    boolean visible;
-    boolean triggered;
-    boolean despawn;
-    boolean currentlyActive;
+    private Location location;
+    private boolean visible;
+    private boolean triggered;
+    private boolean despawn;
+    private boolean currentlyActive;
     
     public boolean getTriggered() {
         return this.triggered;

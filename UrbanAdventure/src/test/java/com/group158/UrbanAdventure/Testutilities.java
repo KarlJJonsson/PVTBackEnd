@@ -60,8 +60,8 @@ public class Testutilities {
         return user;
     }
 
-    public EventStreetLight generateStreetLight(){
-        EventStreetLight event = new EventStreetLight(2, 4, generateLocation(), 5);
+    public EventStreetLight generateEventStreetLight(){
+        EventStreetLight event = new EventStreetLight(1, 2, generateListOfStreetLights());
 
         return event;
     }
@@ -143,5 +143,29 @@ public class Testutilities {
         List<Choice> choices = List.of();
 
         return choices;
+    }
+
+    public StreetLight generateStreetLight(){
+        StreetLight streetLight = new StreetLight(1, 1, 2, 2, 3);
+
+        return streetLight;
+    }
+
+    public StreetLight generateAnotherStreetLight(){
+        StreetLight streetLight = new StreetLight(2, 2, 3, 3, 4);
+
+        return streetLight;
+    }
+
+    public List<StreetLight> generateListOfStreetLights(){
+        List<StreetLight> streetLights = List.of(generateStreetLight(), generateAnotherStreetLight());
+
+        return streetLights;
+    }
+
+    public List<StreetLight> generateAnotherListOfStreetLights(){
+        List<StreetLight> streetLights = List.of(generateStreetLight(), generateAnotherStreetLight(), generateStreetLight(), generateAnotherStreetLight());
+
+        return streetLights;
     }
 }

@@ -3,7 +3,6 @@ package com.group158.UrbanAdventure;
 import java.util.Objects;
 
 public class EventMedia extends Event {
-
     private String image;
     private String sound;
     private String video;

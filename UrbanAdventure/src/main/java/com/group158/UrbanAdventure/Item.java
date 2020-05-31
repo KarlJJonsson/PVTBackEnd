@@ -2,7 +2,7 @@ package com.group158.UrbanAdventure;
 
 @Deprecated
 public class Item {
-    String name;
+    private String name;
 
     public Item(String name) {
         this.name = name;
