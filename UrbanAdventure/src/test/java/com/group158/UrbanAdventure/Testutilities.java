@@ -1,5 +1,6 @@
 package com.group158.UrbanAdventure;
 
+import java.util.Base64;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,9 @@ import com.group158.UrbanAdventure.User.User;
  * Utility for tests. This class is used to initialize objects and similar routines.
  * This is done to ensure stable replicable test throughout the project.
  */
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 public class Testutilities {
     
     public Testutilities(){};
@@ -162,5 +166,33 @@ public class Testutilities {
         List<StreetLight> streetLights = List.of(generateStreetLight(), generateAnotherStreetLight(), generateStreetLight(), generateAnotherStreetLight());
 
         return streetLights;
+    }
+
+    public HttpHeaders generateAuthorizedHeader(){
+        HttpHeaders headers = new HttpHeaders();
+        MediaType mediaType = new MediaType("application", "json");
+        headers.setContentType(mediaType);
+
+        String authStr = "AutoTest@test.com"+":"+"AutoTest";
+        String encodedAuthStr = Base64.getEncoder().encodeToString(authStr.getBytes());
+        String headerStr = "Basic "+encodedAuthStr;
+
+        headers.set("Authorization", headerStr);
+
+        return headers;
+    }
+
+    public HttpHeaders generateAuthorizedHeaderFromUser(User user){
+        HttpHeaders headers = new HttpHeaders();
+        MediaType mediaType = new MediaType("application", "json");
+        headers.setContentType(mediaType);
+
+        String authStr = user.getEmail()+":"+user.getPassword();
+        String encodedAuthStr = Base64.getEncoder().encodeToString(authStr.getBytes());
+        String headerStr = "Basic "+encodedAuthStr;
+
+        headers.set("Authorization", headerStr);
+
+        return headers;
     }
 }

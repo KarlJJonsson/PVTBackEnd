@@ -30,6 +30,7 @@ public class AdventureController {
         return new ResponseEntity<List<Adventure>>(adventure, HttpStatus.OK);
     }
 
+    //For testing connections
     @GetMapping("/all/hello")
     public ResponseEntity<String> getHelloMsg(){
         return new ResponseEntity<String>("Hello!", HttpStatus.OK);
@@ -38,7 +39,6 @@ public class AdventureController {
     @PostMapping("/create")
     public ResponseEntity<String> createAdventure(@RequestBody Adventure adventure) {
         adventureRepository.save(adventure);
-        System.out.println("{\n\n\n\n\n\n\n\n\n\n\n"+adventure.getId());
         return new ResponseEntity<String>(adventure.getId(), HttpStatus.CREATED);
     }
 
