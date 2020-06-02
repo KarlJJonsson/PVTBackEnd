@@ -38,6 +38,17 @@ public class Testutilities {
         return adventure;
     }
 
+    public Adventure generateAnotherAdventure(){
+        List<Event> events = new ArrayList<Event>();
+
+        events.add(generateEventLocation());
+        events.add(generateEventStreetLight());
+
+        Adventure adventure = new Adventure("OnlyForTesting", 2, "genre", "DescriptiveText.", "Anonymous", events, 0, 0);
+
+        return adventure;
+    }
+
     public String generateAdventureJsonStringWithId(String id){
         String adventureJsonString = String.format("{id=%s, adventureTitle=OnlyForTesting, length=2, genre=genre, "+
         "descriptionText=DescriptiveText., author=Anonymous, events=[{type=location, index=0, path=1, location={latitude=30.5, "+
@@ -194,5 +205,47 @@ public class Testutilities {
         headers.set("Authorization", headerStr);
 
         return headers;
+    }
+
+    public List<Event> generateEmptyList(){
+        List<Event> list = List.of();
+
+        return list;
+    }
+
+    public String generateValidName(){
+        return "ValidName";
+    }
+
+    public String generateTooLongName(){
+        return "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"; //60 characters long, max is 50
+    }
+
+    public String generateBlankString(){
+        return "";
+    }
+
+    public String generateInvalidEmail(){
+        return "notAnEmail";
+    }
+
+    public String generateValidEmail(){
+        return "email@email.com";
+    }
+
+    public String generateTooLongEmail(){
+        return "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb@email.com"; //valid email, but over 50 characters long
+    }
+
+    public String generateValidPassword(){
+        return "validPass"; //has to be between 5 and 50 chars long
+    }
+
+    public String generateTooLongPassword(){
+        return "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"; //60 characters long, max is 50
+    }
+
+    public String generateTooShortPassword(){
+        return "bb"; //minimum is 5
     }
 }

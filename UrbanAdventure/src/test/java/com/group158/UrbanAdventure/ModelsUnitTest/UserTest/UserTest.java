@@ -44,4 +44,10 @@ public class UserTest {
 
         assertNotEquals(user1, user2);
     }
+
+    /**
+     * User creation restriction semantics has been moved to flutter, and are thus not tested here. They have however been left in the User class incase changes would be made.
+     * They are left with no validator implemented, and should since not do anything.
+     * Even if they would still kick in (somehow?) in the REST api, the restrictions would not collide with the flutter restrictions.
+     */
 }

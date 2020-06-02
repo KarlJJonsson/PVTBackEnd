@@ -14,6 +14,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Users")
 public class User {
 
+    //constraint semantics for email, name and password has been moved to flutter. They are however left here without a validator, since a change back to java could be made
+    //in the future. There is no validator implemented, so they should not be functioning. Even if they were, there would be no unwanted collision with the constraints
+    //implemented in flutter.
+
     @NotBlank
     @Email
     @Size(max = 50)
