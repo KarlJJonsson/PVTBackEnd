@@ -303,7 +303,6 @@ public class HttpRequestIntegrationTest {
 
     @Test
     public void NonExistingUserShouldNotBeAuthenticated(){
-
         user = testUtil.generateAnotherUser(); //genererar en användare som inte finns i databasen
         String authStr = user.getEmail()+":"+user.getPassword();
         String encodedAuthStr = Base64.getEncoder().encodeToString(authStr.getBytes());
@@ -367,8 +366,6 @@ public class HttpRequestIntegrationTest {
         HttpEntity<?> entity2= new HttpEntity<>(adventure, authHeaders);
 
         String id = this.restTemplate.exchange("/api/create", HttpMethod.POST, entity2, String.class).getBody();
-
-
 
         HttpStatus response1 = this.restTemplate.exchange("/auth/login", HttpMethod.GET, entity1, Object.class).getStatusCode();
         HttpStatus response2 = this.restTemplate.exchange("/api/all", HttpMethod.GET, entity1, Object.class).getStatusCode();
