@@ -1,5 +1,4 @@
 # PVTBackEnd
-REST api för PVT15 projekt  
+REST api for project assingment from SU DSV PVT (Project work with software engineering) course
   
 [PVTMainRepo](https://github.com/KarlJJonsson/PVT)
-TestPush
